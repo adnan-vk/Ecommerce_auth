@@ -1,5 +1,5 @@
 import 'package:authentication/controller/authenticarion_provider/auth_provider.dart';
-import 'package:authentication/firebase_options.dart';
+import 'package:authentication/service/firebase_options.dart';
 import 'package:authentication/view/welcome_page/welcome_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => ProviderEmail(),)
+        ChangeNotifierProvider(create: (context) => AuthenticationProvider(),)
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,

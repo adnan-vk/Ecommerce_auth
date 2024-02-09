@@ -15,7 +15,8 @@ class SigninScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final pro = Provider.of<ProviderEmail>(context, listen: false);
+    final pro = Provider.of<AuthenticationProvider>(context, listen: false);
+
     return Scaffold(
       body: Form(
         key: formkey,

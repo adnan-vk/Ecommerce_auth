@@ -32,7 +32,7 @@ class WelcomePage extends StatelessWidget {
                       child: Column(
                         children: [
                           SizedBox(height: size.height * 0.1),
-                         TextWidget().text(
+                          TextWidget().text(
                               data: 'Discover a World of',
                               color: appcolor.white,
                               size: 28.0,
@@ -59,7 +59,11 @@ class WelcomePage extends StatelessWidget {
                                       MaterialStatePropertyAll(Colors.white)),
                               onPressed: () {
                                 // checkUserLoggedIn(context);
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen(),));
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => LoginScreen(),
+                                    ));
                               },
                               child: TextWidget().text(
                                 data: 'Get Started',

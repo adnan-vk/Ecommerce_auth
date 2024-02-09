@@ -1,4 +1,6 @@
+import 'package:authentication/controller/authenticarion_provider/auth_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginPageWidget {
   loginIcons(context) {
@@ -8,8 +10,8 @@ class LoginPageWidget {
       children: [
         GestureDetector(
           onTap: () {
-            // Provider.of<GoogleAuthenticationProvider>(context, listen: false)
-                // .googleSignIn();
+            Provider.of<AuthenticationProvider>(context, listen: false)
+            .googleSignIn();
           },
           child: SizedBox(
             width: size.width * .08,
