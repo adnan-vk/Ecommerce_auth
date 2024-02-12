@@ -46,16 +46,12 @@ class SigninScreen extends StatelessWidget {
                           height: 10,
                         ),
                         Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "Sign up",
-                            style: TextStyle(
-                              color: appcolor.orange,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 30,
-                            ),
-                          ),
-                        ),
+                            alignment: Alignment.centerLeft,
+                            child: textwidget.text(
+                                data: "Sign up",
+                                color: appcolor.orange,
+                                weight: FontWeight.bold,
+                                size: 30.0)),
                         const SizedBox(
                           height: 15,
                         ),
@@ -106,11 +102,9 @@ class SigninScreen extends StatelessWidget {
                               onPressed: () {
                                 Navigator.pop(context);
                               },
-                              child: Text(
-                                "LOGIN",
-                                style: TextStyle(
-                                  color: appcolor.orange,
-                                ),
+                              child: textwidget.text(
+                                data: "LOGIN",
+                                color: appcolor.orange,
                               ),
                             ),
                           ],

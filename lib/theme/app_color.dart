@@ -5,4 +5,6 @@ class AppColors {
   final white = Colors.white;
   final yellow = Colors.yellow;
   final black = Colors.black;
+  final grey = Colors.grey;
+  final blue = const Color(0xFF005086);
 }

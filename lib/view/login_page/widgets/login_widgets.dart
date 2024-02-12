@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:authentication/controller/authenticarion_provider/auth_provider.dart';
+import 'package:authentication/view/phone/phone.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -48,7 +49,9 @@ class LoginPageWidget {
           width: size.width * .02,
         ),
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => OtpPage(),));
+          },
           child: SizedBox(
             width: size.width * .08,
             height: size.width * .08,

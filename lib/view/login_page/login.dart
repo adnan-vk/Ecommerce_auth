@@ -36,7 +36,7 @@ class LoginScreen extends StatelessWidget {
                   child: Container(
                     alignment: Alignment.center,
                     padding:
-                        const EdgeInsets.only(top: 50, left: 20, right: 20),
+                        const EdgeInsets.only(top: 50, left: 10, right: 10),
                     width: double.infinity,
                     height: size.height * .7,
                     child: Column(
@@ -84,6 +84,8 @@ class LoginScreen extends StatelessWidget {
                                     MaterialPageRoute(
                                       builder: (context) => const HomePage(),
                                     ));
+                                    pro.emailController.clear();
+                                    pro.passwordController.clear();
                               } catch (e) {
                                 SnackBarWidget().showErrorSnackbar(
                                     context, 'Email or password incorrect');

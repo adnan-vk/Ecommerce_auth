@@ -1,131 +1,12 @@
-// import 'package:flutter/material.dart';
-
-// class HomePage extends StatelessWidget {
-//   const HomePage({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final size = MediaQuery.of(context).size;
-
-//     return Scaffold(
-//       appBar: AppBar(
-//         backgroundColor: Colors.orange,
-//         elevation: 0,
-//         centerTitle: true,
-//         title: const Text(
-//           "Books List",
-//           style: TextStyle(
-//             color: Colors.white,
-//             fontWeight: FontWeight.bold,
-//             fontSize: 24,
-//           ),
-//         ),
-//         actions: [
-//           IconButton(
-//             onPressed: () {},
-//             icon: const Icon(
-//               Icons.shopping_bag_outlined,
-//               color: Colors.white,
-//             ),
-//           ),
-//           const SizedBox(width: 10),
-//         ],
-//       ),
-//       body: Column(
-//         crossAxisAlignment: CrossAxisAlignment.stretch,
-//         children: [
-//           Padding(
-//             padding: const EdgeInsets.all(10),
-//             child: TextFormField(
-//               decoration: InputDecoration(
-//                 prefixIcon: const Icon(Icons.search),
-//                 border: OutlineInputBorder(
-//                   borderRadius: BorderRadius.circular(20),
-//                 ),
-//                 labelText: "Search here ...",
-//               ),
-//               onChanged: (value) {},
-//             ),
-//           ),
-//           const SizedBox(height: 10),
-//           Expanded(
-//             child: GridView.builder(
-//               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-//                 crossAxisCount: 2,
-//                 mainAxisSpacing: 10,
-//                 crossAxisSpacing: 10,
-//                 childAspectRatio: 0.7,
-//               ),
-//               itemBuilder: (context, index) {
-//                 return Container(
-//                   padding: const EdgeInsets.all(10),
-//                   decoration: BoxDecoration(
-//                     // image: DecorationImage(
-//                     //     image: NetworkImage(
-//                     //         'https://images.theconversation.com/files/45159/original/rptgtpxd-1396254731.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=754&fit=clip')),
-//                     color: Colors.white,
-//                     borderRadius: BorderRadius.circular(15),
-//                     boxShadow: [
-//                       BoxShadow(
-//                         color: Colors.grey.withOpacity(0.3),
-//                         spreadRadius: 2,
-//                         blurRadius: 5,
-//                         offset: const Offset(0, 3),
-//                       ),
-//                     ],
-//                   ),
-//                   child: Column(
-//                     crossAxisAlignment: CrossAxisAlignment.start,
-//                     children: [
-//                       Placeholder(
-//                         fallbackHeight: size.height * 0.2,
-//                       ),
-//                       const SizedBox(height: 10),
-//                       const Text(
-//                         "Book Title",
-//                         style: TextStyle(
-//                           color: Colors.black,
-//                           fontWeight: FontWeight.bold,
-//                           fontSize: 16,
-//                         ),
-//                       ),
-//                       Text(
-//                         "Author Name",
-//                         style: TextStyle(
-//                           color: Colors.grey[600],
-//                           fontSize: 12,
-//                         ),
-//                       ),
-//                       Text(
-//                         "Category",
-//                         style: TextStyle(
-//                           color: Colors.grey[600],
-//                           fontSize: 12,
-//                         ),
-//                       ),
-//                       const Text(
-//                         "₹ Price",
-//                         style: TextStyle(
-//                           color: Colors.orange,
-//                           fontWeight: FontWeight.bold,
-//                           fontSize: 14,
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 );
-//               },
-//               itemCount: 10,
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
-
+import 'package:authentication/controller/authenticarion_provider/auth_provider.dart';
 import 'package:authentication/view/cart/cart.dart';
+import 'package:authentication/view/login_page/login.dart';
+import 'package:authentication/view/welcome_page/welcome_page.dart';
+import 'package:authentication/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+TextWidget textwidget = TextWidget();
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -136,7 +17,7 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.orange,
+        backgroundColor: appcolor.blue,
         elevation: 0,
         centerTitle: true,
         title: const Text(
@@ -150,11 +31,13 @@ class HomePage extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const CartPage(),
-                  ));
+              Provider.of<AuthenticationProvider>(context,listen: false).signOutEmail();
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen(),));
+              // Navigator.push(
+              //     context,
+              //     MaterialPageRoute(
+              //       builder: (context) => const CartPage(),
+              //     ));
             },
             icon: const Icon(
               Icons.shopping_bag_outlined,
@@ -187,7 +70,7 @@ class HomePage extends StatelessWidget {
                 crossAxisCount: 2,
                 mainAxisSpacing: 10,
                 crossAxisSpacing: 10,
-                childAspectRatio: 0.7,
+                childAspectRatio: 0.68,
               ),
               itemBuilder: (context, index) {
                 return Container(
@@ -211,36 +94,24 @@ class HomePage extends StatelessWidget {
                         fallbackHeight: size.height * 0.2,
                       ),
                       const SizedBox(height: 10),
-                      const Text(
-                        "Book Title",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
-                      ),
-                      Text(
-                        "Author Name",
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 12,
-                        ),
-                      ),
-                      Text(
-                        "Category",
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 12,
-                        ),
-                      ),
-                      const Text(
-                        "₹ Price",
-                        style: TextStyle(
-                          color: Colors.orange,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                      ),
+                      textwidget.text(
+                          data: "Book Title",
+                          color: appcolor.black,
+                          weight: FontWeight.bold,
+                          size: 16.0),
+                      textwidget.text(
+                          data: "Author Name",
+                          color: appcolor.grey,
+                          size: 12.0),
+                      textwidget.text(
+                          data: "Category",
+                          color: appcolor.grey[600],
+                          size: 12.0),
+                      textwidget.text(
+                          data: "₹ 1234",
+                          color: appcolor.orange,
+                          weight: FontWeight.bold,
+                          size: 14.0),
                     ],
                   ),
                 );
@@ -252,13 +123,11 @@ class HomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          // Navigate to cart page
           Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => const CartPage(),
               ));
-          // Navigator.pushNamed(context, '/cart');
         },
         label: const Text('Go to Cart'),
         icon: const Icon(Icons.shopping_cart),
