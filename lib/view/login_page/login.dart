@@ -6,7 +6,6 @@ import 'package:authentication/view/login_page/widgets/login_widgets.dart';
 import 'package:authentication/view/signup_page/signup.dart';
 import 'package:authentication/view/welcome_page/welcome_page.dart';
 import 'package:authentication/widgets/divider.dart';
-import 'package:authentication/widgets/nav_widget.dart';
 import 'package:authentication/widgets/snackbar_widget.dart';
 import 'package:authentication/widgets/text_filed_widget.dart';
 import 'package:authentication/widgets/text_widget.dart';
@@ -83,11 +82,11 @@ class LoginScreen extends StatelessWidget {
                                 Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => HomePage(),
+                                      builder: (context) => const HomePage(),
                                     ));
                               } catch (e) {
                                 SnackBarWidget().showErrorSnackbar(
-                                    context, 'Username password incorrect');
+                                    context, 'Email or password incorrect');
                               }
                             }
                             return;

@@ -1,43 +1,10 @@
-// import 'dart:developer';
-
-// import 'package:firebase_auth/firebase_auth.dart';
-
-// // class EmailAuth {
-// //   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-
-// //   Future signUpEmail(String email, String password) async {
-// //     try {
-// //       UserCredential usercredential = await firebaseAuth
-// //           .createUserWithEmailAndPassword(email: email, password: password);
-// //       log('account created');
-// //       return usercredential.user;
-// //     } catch (e) {
-// //       rethrow;
-// //     }
-// //   }
-// class EmailAuth {
-//   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-
-//   Future<User?> signUpEmail(String email, String password) async {
-//     try {
-//       UserCredential userCredential = await firebaseAuth
-//           .createUserWithEmailAndPassword(email: email, password: password);
-//       return userCredential.user;
-//     } catch (e) {
-//       print('Error signing up: $e');
-//       return null;
-//     }
-//   }
-// }
-
 import 'dart:developer';
-
 import 'package:authentication/model/auth_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class EmailAuth {
+class EmailGoogleAuth {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   String collection = 'UserPost';
   FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -70,39 +37,61 @@ class EmailAuth {
 
   Future<void> googleSignIn() async {
     try {
-      // Perform Google Sign-In
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       final GoogleSignInAuthentication? googleAuth =
           await googleUser?.authentication;
-
-      // Obtain credential from GoogleSignInAuthentication
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
-
-      // Sign in with Firebase using the obtained credential
       final UserCredential userCredential =
           await FirebaseAuth.instance.signInWithCredential(credential);
-
-      // Retrieve user information
       final User? guser = userCredential.user;
-
-      // Create an AuthenticationModel instance
       final authenticationModel = AuthenticationModel(
         email: guser?.email,
         name: guser?.displayName,
         phoneNumber: guser?.phoneNumber,
         uId: guser?.uid,
       );
-
-      // Store user data in Firestore
       await firestore.collection(collection).doc(guser?.uid).set(
             authenticationModel.toJson(),
           );
     } catch (e) {
-      print('Google Sign-In Error: $e'); // Log any errors during sign-in
-      throw e; // Rethrow the error for handling in UI if necessary
+      log('Google Sign-In Error: $e');
+      rethrow;
+    }
+  }
+
+  // Future<UserCredential?> gitHubSign() async {
+  //   if (firebaseAuth.currentUser != null) {
+  //     return null;
+  //   }
+
+  //   GithubAuthProvider githubAuthProvider = GithubAuthProvider();
+  //   try {
+  //     UserCredential user =
+  //         await firebaseAuth.signInWithProvider(githubAuthProvider);
+  //     User gituser = user.user!;
+  //     final AuthenticationModel userData = AuthenticationModel(
+  //         email: gituser.email, name: gituser.displayName, uId: gituser.uid);
+  //     firestore.collection(collection).doc(gituser.uid).set(userData.toJson());
+  //     return user;
+  //   } catch (e) {
+  //     rethrow;
+  //   }
+  // }
+  gitHubSign(context) async {
+    GithubAuthProvider githubAuthProvider = GithubAuthProvider();
+    try {
+      UserCredential user =
+          await firebaseAuth.signInWithProvider(githubAuthProvider);
+      User gituser = user.user!;
+      final AuthenticationModel userdata = AuthenticationModel(
+          email: gituser.email, name: gituser.displayName, uId: gituser.uid);
+      firestore.collection("users").doc(gituser.uid).set(userdata.toJson());
+      return user;
+    } catch (e) {
+      throw Exception(e);
     }
   }
 }

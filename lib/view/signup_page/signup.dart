@@ -88,8 +88,8 @@ class SigninScreen extends StatelessWidget {
                                 try {
                                   pro.signUpEmail(pro.emailController.text,
                                       pro.passwordController.text);
-                                  NavigatorWidget()
-                                      .pushReplacement(context, HomePage());
+                                  NavigatorWidget().pushReplacement(
+                                      context, const HomePage());
                                   SnackBarWidget().showSuccessSnackbar(
                                       context, 'Account has been created');
                                   pro.clearControllers();

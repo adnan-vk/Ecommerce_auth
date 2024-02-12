@@ -1,15 +1,14 @@
-import 'package:authentication/view/welcome_page/welcome_page.dart';
-import 'package:authentication/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: AppBar(
-        // automaticallyImplyLeading: false,
         backgroundColor: Colors.orange,
         elevation: 0,
         centerTitle: true,
@@ -17,149 +16,102 @@ class HomePage extends StatelessWidget {
           "Books List",
           style: TextStyle(
             color: Colors.white,
-            fontWeight: FontWeight.w500,
-            fontSize: 40,
+            fontWeight: FontWeight.bold,
+            fontSize: 24,
           ),
         ),
         actions: [
           IconButton(
-            onPressed: () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) => const Favourite(),
-              //   ),
-              // );
-            },
+            onPressed: () {},
             icon: const Icon(
               Icons.shopping_bag_outlined,
               color: Colors.white,
             ),
           ),
-          const SizedBox(
-            width: 10,
-          )
+          const SizedBox(width: 10),
         ],
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Padding(
             padding: const EdgeInsets.all(10),
             child: TextFormField(
               decoration: InputDecoration(
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+                prefixIcon: const Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
                 labelText: "Search here ...",
               ),
-              onChanged: (value) {
-                // Perform search operation here
-              },
+              onChanged: (value) {},
             ),
           ),
-          const SizedBox(
-            height: 10,
-          ),
+          const SizedBox(height: 10),
           Expanded(
             child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                mainAxisExtent: size.height * .4,
-                crossAxisSpacing: size.width * 0.01,
-                mainAxisSpacing: size.height * 0.01,
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
+                childAspectRatio: 0.7,
               ),
               itemBuilder: (context, index) {
-                // Replace this with your book item data
-                // final item = books[index];
-
-                // Temporary book data for demonstration
-                // final item = Book(
-                //   title: 'Book Title $index',
-                //   author: 'Author Name $index',
-                //   category: 'Category $index',
-                //   price: '\$$index',
-                //   image: 'https://via.placeholder.com/150',
-                //   description: 'Book description $index',
-                // );
-
-                return GestureDetector(
-                  // onTap: () => Navigator.push(
-                  //   context
-                  //   // MaterialPageRoute(
-                  //   //   builder: (context) => DetailsPage(
-                  //   //     title: item.title,
-                  //   //     image: item.image,
-                  //   //     description: item.description,
-                  //   //     price: item.price,
-                  //   //     author: item.author,
-                  //   //   ),
-                  //   // ),
-                  // ),
-                  child: Container(
-                    padding: const EdgeInsets.all(10),
+                return Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    // image: DecorationImage(
+                    //     image: NetworkImage(
+                    //         'https://images.theconversation.com/files/45159/original/rptgtpxd-1396254731.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=754&fit=clip')),
                     color: Colors.white,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Stack(
-                          children: [
-                            // Container(
-                            //   width: size.width * 0.5,
-                            //   height: size.height * 0.3,
-                            //   decoration: BoxDecoration(
-                            //     image: DecorationImage(
-                            //       fit: BoxFit.fill,
-                            //       image: NetworkImage(item.image),
-                            //     ),
-                            //   ),
-                            // ),
-                            Positioned(
-                              left: 180,
-                              top: 20,
-                              child: Container(
-                                color: Colors.white,
-                                child: IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(
-                                    Icons.shopping_bag_outlined,
-                                    color: Colors.orange,
-                                  ),
-                                ),
-                              ),
-                            )
-                          ],
+                    borderRadius: BorderRadius.circular(15),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.3),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Placeholder(
+                        fallbackHeight: size.height * 0.2,
+                      ),
+                      const SizedBox(height: 10),
+                      const Text(
+                        "Book Title",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
                         ),
-                        const SizedBox(
-                          height: 20.0,
+                      ),
+                      Text(
+                        "Author Name",
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 12,
                         ),
-                        TextWidget().text(
-                          data: "name : ",
-                          // ${item.title}".toUpperCase(),
-                          color: appcolor.orange,
-                          weight: FontWeight.w900,
-                          size: 15.0,
+                      ),
+                      Text(
+                        "Category",
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 12,
                         ),
-                        TextWidget().text(
-                          data: "author : ",
-                          // ${item.author}".toUpperCase(),
-                          color: appcolor.orange,
-                          size: 10.0,
-                          weight: FontWeight.w200,
+                      ),
+                      const Text(
+                        "₹ Price",
+                        style: TextStyle(
+                          color: Colors.orange,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
                         ),
-                        TextWidget().text(
-                          data: "Type :",  
-                          // ${item.category}".toUpperCase(),
-                          color: appcolor.orange,
-                          weight: FontWeight.w200,
-                          size: 10.0,
-                        ),
-                        TextWidget().text(
-                          data: "₹ : ",
-                          // ${item.price}".toUpperCase(),
-                          color: appcolor.orange,
-                          size: 10.0,
-                          weight: FontWeight.w200,
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 );
               },

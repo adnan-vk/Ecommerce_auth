@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:authentication/controller/authenticarion_provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +13,7 @@ class LoginPageWidget {
         GestureDetector(
           onTap: () {
             Provider.of<AuthenticationProvider>(context, listen: false)
-            .googleSignIn();
+                .googleSignIn();
           },
           child: SizedBox(
             width: size.width * .08,
@@ -19,18 +21,22 @@ class LoginPageWidget {
             child: const Image(
                 fit: BoxFit.cover,
                 image: NetworkImage(
-                  'https://freelogopng.com/images/all_img/1657955547black-google-icon.png',
+                  'https://cdn.iconscout.com/icon/free/png-256/free-google-1772223-1507807.png',
                 )),
           ),
         ),
         SizedBox(
           width: size.width * .02,
         ),
-        GestureDetector(
-          onTap: () {},
-          child: SizedBox(
-            width: size.width * .08,
-            height: size.width * .08,
+        SizedBox(
+          width: size.width * .08,
+          height: size.width * .08,
+          child: InkWell(
+            onTap: () {
+              Provider.of<AuthenticationProvider>(context, listen: false)
+                  .gitHubSignIn(context);
+              log('git is clicked');
+            },
             child: const Image(
                 fit: BoxFit.cover,
                 image: NetworkImage(
@@ -49,7 +55,7 @@ class LoginPageWidget {
             child: const Image(
                 fit: BoxFit.cover,
                 image: NetworkImage(
-                    'https://i.pinimg.com/736x/3e/f3/b2/3ef3b280bce4c1209e1e4376c7f452ed.jpg')),
+                    'https://cdn-icons-png.flaticon.com/256/124/124010.png')),
           ),
         ),
       ],
