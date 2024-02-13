@@ -4,13 +4,14 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
 class textFormField {
-  textformfield(
-      {controller,
-      labeltext,
-      onchange,
-      validator,
-      String? type,
-      String? Controller}) {
+  textformfield({
+    controller,
+    labeltext,
+    onchange,
+    validator,
+    String? type,
+    keytype
+  }) {
     return TextFormField(
       validator: (value) {
         if (value == null || value.isEmpty) {
@@ -24,18 +25,21 @@ class textFormField {
             return 'Password should be at least 6 characters';
           }
         } else if (type == 'Confirm Password') {
-          if (value != Controller) {
+          if (value != controller) {
             return 'Passwords do not match';
           }
         }
         return null;
       },
+      keyboardType: keytype,
       controller: controller,
       decoration: InputDecoration(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
         labelText: labeltext,
       ),
-      onChanged: onchange,
+      onChanged: (value) {
+        onchange;
+      },
     );
   }
 }

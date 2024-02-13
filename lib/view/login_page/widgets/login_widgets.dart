@@ -50,7 +50,7 @@ class LoginPageWidget {
         ),
         GestureDetector(
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => OtpPage(),));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => PhonePage(),));
           },
           child: SizedBox(
             width: size.width * .08,

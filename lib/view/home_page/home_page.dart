@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: appcolor.blue,
+        backgroundColor: appcolor.orange,
         elevation: 0,
         centerTitle: true,
         title: const Text(
@@ -31,13 +31,13 @@ class HomePage extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              Provider.of<AuthenticationProvider>(context,listen: false).signOutEmail();
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen(),));
-              // Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //       builder: (context) => const CartPage(),
-              //     ));
+              Provider.of<AuthenticationProvider>(context, listen: false)
+                  .signOutEmail();
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LoginScreen(),
+                  ));
             },
             icon: const Icon(
               Icons.shopping_bag_outlined,

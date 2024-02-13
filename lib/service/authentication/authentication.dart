@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class EmailGoogleAuth {
+  String? _verificationid;
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   String collection = 'UserPost';
   FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -62,24 +63,6 @@ class EmailGoogleAuth {
     }
   }
 
-  // Future<UserCredential?> gitHubSign() async {
-  //   if (firebaseAuth.currentUser != null) {
-  //     return null;
-  //   }
-
-  //   GithubAuthProvider githubAuthProvider = GithubAuthProvider();
-  //   try {
-  //     UserCredential user =
-  //         await firebaseAuth.signInWithProvider(githubAuthProvider);
-  //     User gituser = user.user!;
-  //     final AuthenticationModel userData = AuthenticationModel(
-  //         email: gituser.email, name: gituser.displayName, uId: gituser.uid);
-  //     firestore.collection(collection).doc(gituser.uid).set(userData.toJson());
-  //     return user;
-  //   } catch (e) {
-  //     rethrow;
-  //   }
-  // }
   gitHubSign(context) async {
     GithubAuthProvider githubAuthProvider = GithubAuthProvider();
     try {
@@ -92,6 +75,37 @@ class EmailGoogleAuth {
       return user;
     } catch (e) {
       throw Exception(e);
+    }
+  }
+
+  Future<void> getOtp(String phoneNumber) async {
+    try {
+      await firebaseAuth.verifyPhoneNumber(
+          phoneNumber: phoneNumber,
+          verificationCompleted: (phoneAuthCredential) async {
+            await firebaseAuth.signInWithCredential(phoneAuthCredential);
+          },
+          verificationFailed: (error) {
+            log("verification failed error : $error");
+          },
+          codeSent: (verificationId, forceResendingToken) {
+            _verificationid = verificationId;
+          },
+          codeAutoRetrievalTimeout: (verificationId) {
+            _verificationid = verificationId;
+          },
+          timeout: Duration(seconds: 60));
+    } catch (e) {
+      log("sign in error : $e");
+    }
+  }
+
+  Future<void> verifyOtp(String otp) async {
+    try {
+      PhoneAuthCredential credential = PhoneAuthProvider.credential(
+          verificationId: _verificationid!, smsCode: otp);
+    } catch (e) {
+      log("verify otp error $e");
     }
   }
 }
