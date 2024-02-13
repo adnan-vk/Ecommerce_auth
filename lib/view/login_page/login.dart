@@ -84,8 +84,8 @@ class LoginScreen extends StatelessWidget {
                                     MaterialPageRoute(
                                       builder: (context) => const HomePage(),
                                     ));
-                                    pro.emailController.clear();
-                                    pro.passwordController.clear();
+                                pro.emailController.clear();
+                                pro.passwordController.clear();
                               } catch (e) {
                                 SnackBarWidget().showErrorSnackbar(
                                     context, 'Email or password incorrect');

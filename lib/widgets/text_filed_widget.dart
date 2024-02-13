@@ -4,14 +4,8 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
 class textFormField {
-  textformfield({
-    controller,
-    labeltext,
-    onchange,
-    validator,
-    String? type,
-    keytype
-  }) {
+  textformfield(
+      {controller, labeltext, onchange, validator, String? type, keytype}) {
     return TextFormField(
       validator: (value) {
         if (value == null || value.isEmpty) {

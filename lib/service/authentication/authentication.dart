@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'dart:developer';
 import 'package:authentication/model/auth_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -94,7 +96,7 @@ class EmailGoogleAuth {
           codeAutoRetrievalTimeout: (verificationId) {
             _verificationid = verificationId;
           },
-          timeout: Duration(seconds: 60));
+          timeout: const Duration(seconds: 60));
     } catch (e) {
       log("sign in error : $e");
     }

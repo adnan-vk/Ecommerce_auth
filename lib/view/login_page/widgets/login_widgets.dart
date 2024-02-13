@@ -50,7 +50,11 @@ class LoginPageWidget {
         ),
         GestureDetector(
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => PhonePage(),));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const PhonePage(),
+                ));
           },
           child: SizedBox(
             width: size.width * .08,
@@ -58,7 +62,7 @@ class LoginPageWidget {
             child: const Image(
                 fit: BoxFit.cover,
                 image: NetworkImage(
-                    'https://cdn-icons-png.flaticon.com/256/124/124010.png')),
+                    'https://cdn-icons-png.freepik.com/256/100/100313.png')),
           ),
         ),
       ],

@@ -23,14 +23,12 @@ class MyApp extends StatelessWidget {
           create: (context) => AuthenticationProvider(),
         )
       ],
-      child:  MaterialApp(
+      child: MaterialApp(
         theme: ThemeData(
-          textTheme: GoogleFonts.montserratTextTheme(
-            Theme.of(context).textTheme
-          )
-        ),
+            textTheme:
+                GoogleFonts.montserratTextTheme(Theme.of(context).textTheme)),
         debugShowCheckedModeBanner: false,
-        home: WelcomePage(),
+        home: const WelcomePage(),
       ),
     );
   }
