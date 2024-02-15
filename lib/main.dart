@@ -1,4 +1,5 @@
 import 'package:authentication/controller/authenticarion_provider/auth_provider.dart';
+import 'package:authentication/controller/book_provider.dart';
 import 'package:authentication/service/firebase_options.dart';
 import 'package:authentication/view/welcome_page/welcome_page.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -23,12 +24,17 @@ class MyApp extends StatelessWidget {
           create: (context) => AuthenticationProvider(),
         )
       ],
-      child: MaterialApp(
-        theme: ThemeData(
-            textTheme:
-                GoogleFonts.montserratTextTheme(Theme.of(context).textTheme)),
-        debugShowCheckedModeBanner: false,
-        home: const WelcomePage(),
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (context) => bookProvider(),)
+        ],
+        child: MaterialApp(
+          theme: ThemeData(
+              textTheme:
+                  GoogleFonts.montserratTextTheme(Theme.of(context).textTheme)),
+          debugShowCheckedModeBanner: false,
+          home: const WelcomePage(),
+        ),
       ),
     );
   }

@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 
 class AuthenticationProvider extends ChangeNotifier {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  final EmailGoogleAuth authService = EmailGoogleAuth();
+  final AuthService authService = AuthService();
   TextEditingController usernameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController otpController = TextEditingController();
+
   String? otpcode;
 
   Future<UserCredential> signUpEmail(String email, String password) async {

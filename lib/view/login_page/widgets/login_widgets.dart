@@ -53,7 +53,7 @@ class LoginPageWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const PhonePage(),
+                  builder: (context) => PhonePage(),
                 ));
           },
           child: SizedBox(

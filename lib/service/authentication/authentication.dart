@@ -6,7 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class EmailGoogleAuth {
+class AuthService {
   String? _verificationid;
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   String collection = 'UserPost';
@@ -83,20 +83,25 @@ class EmailGoogleAuth {
   Future<void> getOtp(String phoneNumber) async {
     try {
       await firebaseAuth.verifyPhoneNumber(
-          phoneNumber: phoneNumber,
-          verificationCompleted: (phoneAuthCredential) async {
-            await firebaseAuth.signInWithCredential(phoneAuthCredential);
-          },
-          verificationFailed: (error) {
-            log("verification failed error : $error");
-          },
-          codeSent: (verificationId, forceResendingToken) {
-            _verificationid = verificationId;
-          },
-          codeAutoRetrievalTimeout: (verificationId) {
-            _verificationid = verificationId;
-          },
-          timeout: const Duration(seconds: 60));
+        phoneNumber: phoneNumber,
+        verificationCompleted: (phoneAuthCredential) async {
+          await firebaseAuth.signInWithCredential(phoneAuthCredential);
+          User? user = FirebaseAuth.instance.currentUser;
+          if (user != null) {
+            await user.updatePhoneNumber(phoneAuthCredential);
+          }
+        },
+        verificationFailed: (error) {
+          log("verification failed error : $error");
+        },
+        codeSent: (verificationId, forceResendingToken) {
+          _verificationid = verificationId;
+        },
+        codeAutoRetrievalTimeout: (verificationId) {
+          _verificationid = verificationId;
+        },
+        timeout: const Duration(seconds: 60),
+      );
     } catch (e) {
       log("sign in error : $e");
     }

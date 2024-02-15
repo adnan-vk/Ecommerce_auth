@@ -66,6 +66,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '941291144002',
     projectId: 'book-af8cb',
     storageBucket: 'book-af8cb.appspot.com',
+    androidClientId: '941291144002-mrrddhto25a495b6jip1l8uu8qcfv4nh.apps.googleusercontent.com',
+    iosClientId: '941291144002-thokl5vbvn03u6r0akjp6a7ffk2d92qi.apps.googleusercontent.com',
     iosBundleId: 'com.example.authentication',
   );
 
@@ -75,6 +77,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '941291144002',
     projectId: 'book-af8cb',
     storageBucket: 'book-af8cb.appspot.com',
+    androidClientId: '941291144002-mrrddhto25a495b6jip1l8uu8qcfv4nh.apps.googleusercontent.com',
+    iosClientId: '941291144002-sm8lmba2brgn0f322fvn5amjdpl3vkfk.apps.googleusercontent.com',
     iosBundleId: 'com.example.authentication.RunnerTests',
   );
 }

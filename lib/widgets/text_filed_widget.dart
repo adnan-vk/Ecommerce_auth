@@ -5,7 +5,15 @@ import 'package:flutter/material.dart';
 
 class textFormField {
   textformfield(
-      {controller, labeltext, onchange, validator, String? type, keytype}) {
+      {controller,
+      labeltext,
+      onchange,
+      validator,
+      String? type,
+      keytype,
+      max,
+      minline,
+      bool obsc = false}) {
     return TextFormField(
       validator: (value) {
         if (value == null || value.isEmpty) {
@@ -22,9 +30,20 @@ class textFormField {
           if (value != controller) {
             return 'Passwords do not match';
           }
+        } else if (type == 'OTP') {
+          if (value.length != 6) {
+            return "OTP must contains 6 characters";
+          }
+        } else if (type == 'phone') {
+          if (value.length != 13) {
+            return "Please Enter Valid Phone Number";
+          }
         }
         return null;
       },
+      obscureText: obsc,
+      minLines: minline,
+      maxLength: max,
       keyboardType: keytype,
       controller: controller,
       decoration: InputDecoration(
