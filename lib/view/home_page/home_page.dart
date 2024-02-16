@@ -1,4 +1,5 @@
 import 'package:authentication/controller/authenticarion_provider/auth_provider.dart';
+import 'package:authentication/controller/book_provider.dart';
 import 'package:authentication/view/cart/cart.dart';
 import 'package:authentication/view/login_page/login.dart';
 import 'package:authentication/view/welcome_page/welcome_page.dart';
@@ -14,6 +15,8 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final pro = Provider.of<AuthenticationProvider>(context, listen: false);
+    Provider.of<bookProvider>(context, listen: false).getBook();
 
     return Scaffold(
       appBar: AppBar(
@@ -31,8 +34,8 @@ class HomePage extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              Provider.of<AuthenticationProvider>(context, listen: false)
-                  .signOutEmail();
+              pro.signOutEmail();
+              pro.googleSignout();
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
@@ -65,69 +68,68 @@ class HomePage extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Expanded(
-            child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-                childAspectRatio: 0.68,
-              ),
-              itemBuilder: (context, index) {
-                return Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(15),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.3),
-                        spreadRadius: 2,
-                        blurRadius: 5,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
+            child: Consumer<bookProvider>(
+              builder: (context, value, child) => GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 10,
+                    crossAxisSpacing: 10,
+                    childAspectRatio: 0.68,
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Placeholder(
-                        fallbackHeight: size.height * 0.2,
+                  itemBuilder: (context, index) {
+                    final book = value.Allbooks[index];
+                    return Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.3),
+                            spreadRadius: 2,
+                            blurRadius: 5,
+                            offset: const Offset(0, 3),
+                          ),
+                        ],
                       ),
-                      const SizedBox(height: 10),
-                      textwidget.text(
-                          data: "Book Title",
-                          color: appcolor.black,
-                          weight: FontWeight.bold,
-                          size: 16.0),
-                      textwidget.text(
-                          data: "Author Name",
-                          color: appcolor.grey,
-                          size: 12.0),
-                      textwidget.text(
-                          data: "Category",
-                          color: appcolor.grey[600],
-                          size: 12.0),
-                      textwidget.text(
-                          data: "₹ 1234",
-                          color: appcolor.orange,
-                          weight: FontWeight.bold,
-                          size: 14.0),
-                    ],
-                  ),
-                );
-              },
-              itemCount: 10,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Placeholder(
+                            fallbackHeight: size.height * 0.2,
+                          ),
+                          const SizedBox(height: 10),
+                          textwidget.text(
+                              data: book.bookname,
+                              color: appcolor.black,
+                              weight: FontWeight.bold,
+                              size: 16.0),
+                          textwidget.text(
+                              data: "Author Name",
+                              color: appcolor.grey,
+                              size: 12.0),
+                          textwidget.text(
+                              data: "Category",
+                              color: appcolor.grey[600],
+                              size: 12.0),
+                          textwidget.text(
+                              data: "₹ 1234",
+                              color: appcolor.orange,
+                              weight: FontWeight.bold,
+                              size: 14.0),
+                        ],
+                      ),
+                    );
+                  },
+                  itemCount: value.Allbooks.length),
             ),
           ),
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => CartPage()
-              ));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const CartPage()));
         },
         label: const Text('Go to Cart'),
         icon: const Icon(Icons.shopping_cart),

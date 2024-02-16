@@ -1,5 +1,6 @@
 import 'package:authentication/controller/authenticarion_provider/auth_provider.dart';
 import 'package:authentication/controller/book_provider.dart';
+import 'package:authentication/controller/image_provider.dart';
 import 'package:authentication/service/firebase_options.dart';
 import 'package:authentication/view/welcome_page/welcome_page.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -22,11 +23,16 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (context) => AuthenticationProvider(),
-        )
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ImgProvider(),
+        ),
       ],
       child: MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (context) => bookProvider(),)
+          ChangeNotifierProvider(
+            create: (context) => bookProvider(),
+          )
         ],
         child: MaterialApp(
           theme: ThemeData(

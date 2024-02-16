@@ -65,6 +65,11 @@ class AuthService {
     }
   }
 
+  Future googleSignOut() async {
+    return await GoogleSignIn().signOut();
+
+  }
+
   gitHubSign(context) async {
     GithubAuthProvider githubAuthProvider = GithubAuthProvider();
     try {

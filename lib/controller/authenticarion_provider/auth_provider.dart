@@ -31,6 +31,11 @@ class AuthenticationProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> googleSignout()async{
+    await authService.googleSignOut();
+    notifyListeners();
+  }
+
   gitHubSignIn(BuildContext context) async {
     try {
       await authService.gitHubSign(context);

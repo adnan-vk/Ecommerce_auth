@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:authentication/controller/authenticarion_provider/auth_provider.dart';
+import 'package:authentication/view/home_page/home_page.dart';
 import 'package:authentication/view/phone/phone.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +16,11 @@ class LoginPageWidget {
           onTap: () {
             Provider.of<AuthenticationProvider>(context, listen: false)
                 .googleSignIn();
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const HomePage(),
+                ));
           },
           child: SizedBox(
             width: size.width * .08,

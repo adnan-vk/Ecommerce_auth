@@ -1,11 +1,13 @@
-// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: library_private_types_in_public_api, unnecessary_null_comparison
 
 import 'dart:developer';
 
 import 'package:authentication/controller/book_provider.dart';
+import 'package:authentication/controller/image_provider.dart';
 import 'package:authentication/model/book_model.dart';
 import 'package:authentication/widgets/text_filed_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class AddBookPage extends StatefulWidget {
@@ -23,7 +25,6 @@ class _AddBookPageState extends State<AddBookPage> {
 
   @override
   Widget build(BuildContext context) {
-    final pro = Provider.of<bookProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add Book'),
@@ -34,11 +35,19 @@ class _AddBookPageState extends State<AddBookPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Center(
-                child: InkWell(
-                  child: CircleAvatar(
-                    radius: 70,
-                    child: Icon(Icons.add_a_photo),
+              Center(
+                child: GestureDetector(
+                  onTap: () {
+                    pickImage(context);
+                  },
+                  child: Consumer<ImgProvider>(
+                    builder: (context, value, child) => CircleAvatar(
+                      backgroundImage: value.pickedImage != null
+                          ? FileImage(value.pickedImage!)
+                          : null,
+                      radius: 70,
+                      child: const Icon(Icons.add_a_photo),
+                    ),
                   ),
                 ),
               ),
@@ -80,7 +89,7 @@ class _AddBookPageState extends State<AddBookPage> {
     if (name.isEmpty ||
         authour.isEmpty ||
         description.isEmpty ||
-        price==null) {
+        price == null) {
       log('invalid input');
       return;
     }
@@ -92,5 +101,33 @@ class _AddBookPageState extends State<AddBookPage> {
     );
     // log('data added');
     pro.addBook(data);
+  }
+
+  Future<dynamic> pickImage(BuildContext context) {
+    final pro = Provider.of<ImgProvider>(context, listen: false);
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return SimpleDialog(
+          title: const Text("Select Image Source"),
+          children: [
+            SimpleDialogOption(
+              onPressed: () {
+                Navigator.pop(context);
+                pro.getImage(ImageSource.camera);
+              },
+              child: const Text("Camera"),
+            ),
+            SimpleDialogOption(
+              onPressed: () {
+                Navigator.pop(context);
+                pro.getImage(ImageSource.gallery);
+              },
+              child: const Text("Gallery"),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
