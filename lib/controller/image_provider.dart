@@ -15,28 +15,28 @@ class ImgProvider extends ChangeNotifier {
   File? file;
   ImagePicker imagePicker = ImagePicker();
   FirebaseStorage storage = FirebaseStorage.instance;
-  ImageService imageservice = ImageService();
+  // ImageService imageservice = ImageService();
 
   Future addImage(ImageSource source) async {
-    await imageservice.addImage(imageName);
-    notifyListeners();
-    // try {
-    //   final XFile? pickedFile =
-    //       await imagePicker.pickImage(source: ImageSource.gallery);
-
-    //   if (pickedFile != null) {
-    //     File imageFile = File(pickedFile.path);
-    //     Reference imageFolder = storage.ref().child('image');
-    //     Reference uploadImage = imageFolder.child("$imageName.jpg");
-    //     await uploadImage.putFile(imageFile);
-    //     downloadUrl = await uploadImage.getDownloadURL();
-    //     notifyListeners();
-    //   }
-    // } catch (error) {
-    //   log('Error: $error');
-    //   return Exception('Image cannot be added: $error');
-    // }
+    // await imageservice.addImage(imageName);
     // notifyListeners();
+    try {
+      final XFile? pickedFile =
+          await imagePicker.pickImage(source: ImageSource.gallery);
+
+      if (pickedFile != null) {
+        File imageFile = File(pickedFile.path);
+        Reference imageFolder = storage.ref().child('image');
+        Reference uploadImage = imageFolder.child("$imageName.jpg");
+        await uploadImage.putFile(imageFile);
+        downloadUrl = await uploadImage.getDownloadURL();
+        notifyListeners();
+      }
+    } catch (error) {
+      log('Error: $error');
+      return Exception('Image cannot be added: $error');
+    }
+    notifyListeners();
   }
 
   Future getImage(ImageSource source) async {

@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class PhonePage extends StatelessWidget {
-   PhonePage({Key? key}) : super(key: key);
+  PhonePage({Key? key}) : super(key: key);
 
   final formkey = GlobalKey<FormState>();
   @override
@@ -54,12 +54,14 @@ class PhonePage extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>  OtpPage(),
+                                builder: (context) => OtpPage(),
                               ));
                           pro.clearControllers();
-                          SnackBarWidget().showSuccessSnackbar(context, "OTP Sended Successfully");
+                          SnackBarWidget().showSuccessSnackbar(
+                              context, "OTP Sended Successfully");
                         } catch (e) {
-                          SnackBarWidget().showErrorSnackbar(context, "pls enter valid number");
+                          SnackBarWidget().showErrorSnackbar(
+                              context, "pls enter valid number");
                         }
                       }
                     },

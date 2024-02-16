@@ -35,7 +35,7 @@ class OtpPage extends StatelessWidget {
                             'https://www.twilio.com/content/dam/twilio-com/global/en/blog/legacy/2023/what-does-otp-mean/What_Is_a_One-Time_Password_OTP.png'))),
               ),
               textFormField().textformfield(
-                max: 6,
+                  max: 6,
                   controller: pro.otpController,
                   labeltext: "OTP",
                   type: "OTP",
@@ -47,7 +47,12 @@ class OtpPage extends StatelessWidget {
                     if (formkey.currentState!.validate()) {
                       try {
                         pro.verifyOtp(pro.otpController.text);
-                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => HomePage(),), (route) => false);
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => HomePage(),
+                            ),
+                            (route) => false);
                         // Navigator.pushReplacement(
                         //     context,
                         //     MaterialPageRoute(

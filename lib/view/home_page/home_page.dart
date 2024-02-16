@@ -1,7 +1,7 @@
 import 'package:authentication/controller/authenticarion_provider/auth_provider.dart';
 import 'package:authentication/controller/book_provider.dart';
 import 'package:authentication/view/cart/cart.dart';
-import 'package:authentication/view/login_page/login.dart';
+import 'package:authentication/view/login_page/selectlogin.dart';
 import 'package:authentication/view/welcome_page/welcome_page.dart';
 import 'package:authentication/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +17,6 @@ class HomePage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final pro = Provider.of<AuthenticationProvider>(context, listen: false);
     Provider.of<bookProvider>(context, listen: false).getBook();
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: appcolor.orange,
@@ -39,7 +38,7 @@ class HomePage extends StatelessWidget {
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => LoginScreen(),
+                    builder: (context) => const SelectLoginTypePage(),
                   ));
             },
             icon: const Icon(
@@ -97,6 +96,8 @@ class HomePage extends StatelessWidget {
                         children: [
                           Placeholder(
                             fallbackHeight: size.height * 0.2,
+                            child: Image.network(
+                                'https://parade.com/.image/t_share/MTkwNTgxMDM0NTMyMjg0Mjg0/quotes-about-reading-books.jpg'),
                           ),
                           const SizedBox(height: 10),
                           textwidget.text(
@@ -105,15 +106,15 @@ class HomePage extends StatelessWidget {
                               weight: FontWeight.bold,
                               size: 16.0),
                           textwidget.text(
-                              data: "Author Name",
+                              data: book.author,
                               color: appcolor.grey,
                               size: 12.0),
                           textwidget.text(
-                              data: "Category",
+                              data: book.category,
                               color: appcolor.grey[600],
                               size: 12.0),
                           textwidget.text(
-                              data: "₹ 1234",
+                              data: "₹ ${book.price}",
                               color: appcolor.orange,
                               weight: FontWeight.bold,
                               size: 14.0),

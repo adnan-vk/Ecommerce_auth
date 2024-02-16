@@ -32,7 +32,7 @@ class bookService {
   }
 
   Future<List<bookmodel>> getAllBooks() async {
-    final snapshot = await book.orderBy('timeStamp', descending: true).get();
+    final snapshot = await book.get();
     return snapshot.docs.map((doc) => doc.data()).toList();
   }
 
