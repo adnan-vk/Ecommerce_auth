@@ -1,12 +1,10 @@
 // ignore_for_file: library_private_types_in_public_api, unnecessary_null_comparison
 
 import 'dart:developer';
-
 import 'package:authentication/controller/book_provider.dart';
 import 'package:authentication/controller/image_provider.dart';
 import 'package:authentication/model/book_model.dart';
 import 'package:authentication/widgets/text_filed_widget.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +25,7 @@ class _AddBookPageState extends State<AddBookPage> {
 
   @override
   Widget build(BuildContext context) {
+    // final pro = Provider.of<bookProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add Book'),
@@ -69,7 +68,9 @@ class _AddBookPageState extends State<AddBookPage> {
                   controller: descriptionController, labeltext: "Description"),
               const SizedBox(height: 20),
               textFormField().textformfield(
-                  controller: priceController, labeltext: "Price"),
+                  keytype: TextInputType.number,
+                  controller: priceController,
+                  labeltext: "Price"),
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
@@ -86,6 +87,7 @@ class _AddBookPageState extends State<AddBookPage> {
 
   addData() {
     final pro = Provider.of<bookProvider>(context, listen: false);
+    final pro2 = Provider.of<ImgProvider>(context, listen: false);
     final name = nameController.text.trim();
     final authour = authorController.text.trim();
     final description = descriptionController.text.trim();
@@ -99,40 +101,50 @@ class _AddBookPageState extends State<AddBookPage> {
       log('invalid input');
       return;
     }
-    final data = bookmodel(
-      category: category,
-      author: authour,
-      bookname: name,
-      description: description,
-      price: price,
-    );
-    // log('data added');
+    final data = Bookmodel(
+        category: category,
+        author: authour,
+        bookname: name,
+        description: description,
+        price: price,
+        image: pro2.downloadUrl);
     pro.addBook(data);
+    pro2.addImage(ImageSource.camera);
+    nameController.clear();
+    authorController.clear();
+    categorycontroller.clear();
+    descriptionController.clear();
+    priceController.clear();
   }
 
-  Future<dynamic> pickImage(BuildContext context) {
+  Future<void> pickImage(BuildContext context) async {
     final pro = Provider.of<ImgProvider>(context, listen: false);
-    return showDialog(
+    await showModalBottomSheet(
       context: context,
-      builder: (context) {
-        return SimpleDialog(
-          title: const Text("Select Image Source"),
-          children: [
-            SimpleDialogOption(
-              onPressed: () {
-                Navigator.pop(context);
-                pro.getImage(ImageSource.camera);
-              },
-              child: const Text("Camera"),
-            ),
-            SimpleDialogOption(
-              onPressed: () {
-                Navigator.pop(context);
-                pro.getImage(ImageSource.gallery);
-              },
-              child: const Text("Gallery"),
-            ),
-          ],
+      builder: (BuildContext context) {
+        return SizedBox(
+          height: 150,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              ListTile(
+                leading: const Icon(Icons.camera_alt),
+                title: const Text('Camera'),
+                onTap: () {
+                  Navigator.pop(context);
+                  pro.getImage(ImageSource.camera);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.image),
+                title: const Text('Gallery'),
+                onTap: () {
+                  Navigator.pop(context);
+                  pro.getImage(ImageSource.gallery);
+                },
+              ),
+            ],
+          ),
         );
       },
     );

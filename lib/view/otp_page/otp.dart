@@ -30,9 +30,10 @@ class OtpPage extends StatelessWidget {
               Container(
                 height: size.height * .3,
                 decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        image: NetworkImage(
-                            'https://www.twilio.com/content/dam/twilio-com/global/en/blog/legacy/2023/what-does-otp-mean/What_Is_a_One-Time_Password_OTP.png'))),
+                    // image: DecorationImage(
+                    //     image: NetworkImage(
+                    //         'https://www.twilio.com/content/dam/twilio-com/global/en/blog/legacy/2023/what-does-otp-mean/What_Is_a_One-Time_Password_OTP.png'))
+                            ),
               ),
               textFormField().textformfield(
                   max: 6,
@@ -50,14 +51,9 @@ class OtpPage extends StatelessWidget {
                         Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => HomePage(),
+                              builder: (context) => const HomePage(),
                             ),
                             (route) => false);
-                        // Navigator.pushReplacement(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //       builder: (context) => const HomePage(),
-                        //     ));
                         SnackBarWidget()
                             .showSuccessSnackbar(context, "OTP validated");
                       } catch (e) {

@@ -104,11 +104,11 @@ class LoginScreen extends StatelessWidget {
                             TextWidget().text(data: "Don't Have an Account ? "),
                             TextButton(
                                 onPressed: () {
-                                  Navigator.pushReplacement(
+                                  Navigator.pushAndRemoveUntil(
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => SigninScreen(),
-                                      ));
+                                      ), (route) => false,);
                                 },
                                 child: TextWidget().text(
                                     data: "SIGNUP", color: appcolor.orange)),

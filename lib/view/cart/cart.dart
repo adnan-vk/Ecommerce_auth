@@ -4,11 +4,11 @@ class CartPage extends StatefulWidget {
   const CartPage({super.key});
 
   @override
-  _CartPageState createState() => _CartPageState();
+  CartPageState createState() => CartPageState();
 }
 
-class _CartPageState extends State<CartPage> {
-  final List<Map<String, dynamic>> _cartItems = [
+class CartPageState extends State<CartPage> {
+  final List<Map<String, dynamic>> cartItems = [
     {'title': 'Book 1', 'author': 'Author A', 'price': 20},
     {'title': 'Book 2', 'author': 'Author B', 'price': 25},
     {'title': 'Book 3', 'author': 'Author C', 'price': 30},
@@ -16,7 +16,7 @@ class _CartPageState extends State<CartPage> {
     {'title': 'Book 5', 'author': 'Author E', 'price': 40},
   ];
 
-  double _totalPrice = 0;
+  double totalPrice = 0;
 
   @override
   void initState() {
@@ -26,7 +26,7 @@ class _CartPageState extends State<CartPage> {
 
   void _calculateTotalPrice() {
     setState(() {
-      _totalPrice = _cartItems.fold(0, (total, item) => total + item['price']);
+      totalPrice = cartItems.fold(0, (total, item) => total + item['price']);
     });
   }
 
@@ -44,12 +44,12 @@ class _CartPageState extends State<CartPage> {
           children: [
             Expanded(
               child: ListView.builder(
-                itemCount: _cartItems.length,
+                itemCount: cartItems.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    title: Text(_cartItems[index]['title']),
-                    subtitle: Text(_cartItems[index]['author']),
-                    trailing: Text('₹ ${_cartItems[index]['price']}'),
+                    title: Text(cartItems[index]['title']),
+                    subtitle: Text(cartItems[index]['author']),
+                    trailing: Text('₹ ${cartItems[index]['price']}'),
                   );
                 },
               ),
@@ -59,7 +59,7 @@ class _CartPageState extends State<CartPage> {
               color: Colors.black,
             ),
             Text(
-              'Total: ₹ $_totalPrice',
+              'Total: ₹ $totalPrice',
               style: const TextStyle(
                 color: Colors.orange,
                 fontWeight: FontWeight.bold,

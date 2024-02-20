@@ -7,9 +7,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
-  String? _verificationid;
+  String? verificationid;
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  String collection = 'UserPost';
+  String collection = 'User';
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   Future<UserCredential> signUpEmail(String email, String password) async {
@@ -49,14 +49,14 @@ class AuthService {
       );
       final UserCredential userCredential =
           await FirebaseAuth.instance.signInWithCredential(credential);
-      final User? guser = userCredential.user;
+      final User? user = userCredential.user;
       final authenticationModel = AuthenticationModel(
-        email: guser?.email,
-        name: guser?.displayName,
-        phoneNumber: guser?.phoneNumber,
-        uId: guser?.uid,
+        email: user?.email,
+        name: user?.displayName,
+        phoneNumber: user?.phoneNumber,
+        uId: user?.uid,
       );
-      await firestore.collection(collection).doc(guser?.uid).set(
+      await firestore.collection(collection).doc(user?.uid).set(
             authenticationModel.toJson(),
           );
     } catch (e) {
@@ -99,10 +99,10 @@ class AuthService {
           log("verification failed error : $error");
         },
         codeSent: (verificationId, forceResendingToken) {
-          _verificationid = verificationId;
+          verificationid = verificationId;
         },
         codeAutoRetrievalTimeout: (verificationId) {
-          _verificationid = verificationId;
+          verificationid = verificationId;
         },
         timeout: const Duration(seconds: 60),
       );
@@ -111,12 +111,14 @@ class AuthService {
     }
   }
 
-  Future<void> verifyOtp(String otp) async {
+  Future<PhoneAuthCredential?> verifyOtp(String otp) async {
     try {
       PhoneAuthCredential credential = PhoneAuthProvider.credential(
-          verificationId: _verificationid!, smsCode: otp);
+          verificationId: verificationid!, smsCode: otp);
+      return credential;
     } catch (e) {
       log("verify otp error $e");
+      return null;
     }
   }
 }

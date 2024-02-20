@@ -1,30 +1,29 @@
-// import 'dart:developer';
-// import 'dart:io';
+import 'dart:developer';
+import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
 
-// import 'package:firebase_storage/firebase_storage.dart';
-// import 'package:image_picker/image_picker.dart';
+class ImgService {
+  final ImagePicker imagePicker = ImagePicker();
+  final FirebaseStorage storage = FirebaseStorage.instance;
 
-// class ImageService {
-//   String? downloadUrl;
-//   FirebaseStorage storage = FirebaseStorage.instance;
-//   ImagePicker imagePicker = ImagePicker();
-//   addImage(imageName) async {
-//     try {
-//       final XFile? pickedFile =
-//           await imagePicker.pickImage(source: ImageSource.gallery);
+  Future<String?> uploadImage(File imageFile, String imageName) async {
+    try {
+      Reference imageFolder = storage.ref().child('image');
+      Reference uploadImage = imageFolder.child("$imageName.jpg");
+      await uploadImage.putFile(imageFile);
+      return await uploadImage.getDownloadURL();
+    } catch (error) {
+      log('Error uploading image: $error');
+      return null;
+    }
+  }
 
-//       if (pickedFile != null) {
-//         File imageFile = File(pickedFile.path);
-//         Reference imageFolder = storage.ref().child('image');
-//         Reference uploadImage = imageFolder.child("$imageName.jpg");
-//         await uploadImage.putFile(imageFile);
-//         downloadUrl = await uploadImage.getDownloadURL();
-//         // notifyListeners();
-//       }
-//     } catch (error) {
-//       log('Error: $error');
-//       return Exception('Image cannot be added: $error');
-//     }
-//     // notifyListeners();
-//   }
-// }
+  Future<File?> pickImage(ImageSource source) async {
+    final pickedFile = await imagePicker.pickImage(source: source);
+    if (pickedFile != null) {
+      return File(pickedFile.path);
+    }
+    return null;
+  }
+}

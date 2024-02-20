@@ -1,6 +1,7 @@
 import 'package:authentication/controller/authenticarion_provider/auth_provider.dart';
 import 'package:authentication/controller/book_provider.dart';
 import 'package:authentication/view/cart/cart.dart';
+import 'package:authentication/view/details_page/details.dart';
 import 'package:authentication/view/login_page/selectlogin.dart';
 import 'package:authentication/view/welcome_page/welcome_page.dart';
 import 'package:authentication/widgets/text_widget.dart';
@@ -42,7 +43,7 @@ class HomePage extends StatelessWidget {
                   ));
             },
             icon: const Icon(
-              Icons.shopping_bag_outlined,
+              Icons.logout_outlined,
               color: Colors.white,
             ),
           ),
@@ -77,48 +78,63 @@ class HomePage extends StatelessWidget {
                   ),
                   itemBuilder: (context, index) {
                     final book = value.Allbooks[index];
-                    return Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.3),
-                            spreadRadius: 2,
-                            blurRadius: 5,
-                            offset: const Offset(0, 3),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Placeholder(
-                            fallbackHeight: size.height * 0.2,
-                            child: Image.network(
-                                'https://parade.com/.image/t_share/MTkwNTgxMDM0NTMyMjg0Mjg0/quotes-about-reading-books.jpg'),
-                          ),
-                          const SizedBox(height: 10),
-                          textwidget.text(
-                              data: book.bookname,
-                              color: appcolor.black,
-                              weight: FontWeight.bold,
-                              size: 16.0),
-                          textwidget.text(
-                              data: book.author,
-                              color: appcolor.grey,
-                              size: 12.0),
-                          textwidget.text(
-                              data: book.category,
-                              color: appcolor.grey[600],
-                              size: 12.0),
-                          textwidget.text(
-                              data: "₹ ${book.price}",
-                              color: appcolor.orange,
-                              weight: FontWeight.bold,
-                              size: 14.0),
-                        ],
+                    return InkWell(
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Detail(
+                              name: book.bookname.toString(),
+                              authour: book.author.toString(),
+                              category: book.category.toString(),
+                              description: book.description.toString(),
+                              price: book.price.toString(), image: book.image.toString(),
+                            ),
+                          )),
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(15),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.3),
+                              spreadRadius: 2,
+                              blurRadius: 5,
+                              offset: const Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Placeholder(
+                              fallbackHeight: size.height * 0.2,
+                              child: book.image == null
+                                  ? Image.network(
+                                      'https://parade.com/.image/t_share/MTkwNTgxMDM0NTMyMjg0Mjg0/quotes-about-reading-books.jpg')
+                                  : Image.network(book.image.toString()),
+                            ),
+                            const SizedBox(height: 10),
+                            textwidget.text(
+                                data: book.bookname,
+                                color: appcolor.black,
+                                weight: FontWeight.bold,
+                                size: 16.0),
+                            textwidget.text(
+                                data: book.author,
+                                color: appcolor.grey,
+                                size: 12.0),
+                            textwidget.text(
+                                data: book.category,
+                                color: appcolor.grey[600],
+                                size: 12.0),
+                            textwidget.text(
+                                data: "₹ ${book.price}",
+                                color: appcolor.orange,
+                                weight: FontWeight.bold,
+                                size: 14.0),
+                          ],
+                        ),
                       ),
                     );
                   },

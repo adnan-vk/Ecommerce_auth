@@ -1,20 +1,20 @@
-class bookmodel {
+class Bookmodel {
   String? bookname;
   String? author;
   String? description;
   int? price;
   String? category;
   String? image;
-  bookmodel(
+  Bookmodel(
       {required this.bookname,
       required this.author,
       required this.description,
       required this.price,
       this.image,
-      this.category});
+      required this.category});
 
-  factory bookmodel.fromjson(String id, Map<String, dynamic> json) {
-    return bookmodel(
+  factory Bookmodel.fromjson(String id, Map<String, dynamic> json) {
+    return Bookmodel(
         author: json['authour'],
         bookname: json['name'],
         description: json['description'],

@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:authentication/view/admin/add_data.dart';
 import 'package:authentication/widgets/text_filed_widget.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +45,7 @@ class AdminLoginPage extends StatelessWidget {
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => AddBookPage(),
+            builder: (context) => const AddBookPage(),
           ));
     }
   }

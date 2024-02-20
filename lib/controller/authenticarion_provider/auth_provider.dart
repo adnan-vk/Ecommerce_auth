@@ -12,8 +12,6 @@ class AuthenticationProvider extends ChangeNotifier {
   TextEditingController phoneController = TextEditingController();
   TextEditingController otpController = TextEditingController();
 
-  String? otpcode;
-
   Future<UserCredential> signUpEmail(String email, String password) async {
     return await authService.signUpEmail(email, password);
   }
@@ -31,7 +29,7 @@ class AuthenticationProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> googleSignout()async{
+  Future<void> googleSignout() async {
     await authService.googleSignOut();
     notifyListeners();
   }

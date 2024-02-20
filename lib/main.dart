@@ -25,22 +25,18 @@ class MyApp extends StatelessWidget {
           create: (context) => AuthenticationProvider(),
         ),
         ChangeNotifierProvider(
+          create: (context) => bookProvider(),
+        ),
+        ChangeNotifierProvider(
           create: (context) => ImgProvider(),
         ),
       ],
-      child: MultiProvider(
-        providers: [
-          ChangeNotifierProvider(
-            create: (context) => bookProvider(),
-          )
-        ],
-        child: MaterialApp(
-          theme: ThemeData(
-              textTheme:
-                  GoogleFonts.montserratTextTheme(Theme.of(context).textTheme)),
-          debugShowCheckedModeBanner: false,
-          home: const WelcomePage(),
-        ),
+      child: MaterialApp(
+        theme: ThemeData(
+            textTheme:
+                GoogleFonts.montserratTextTheme(Theme.of(context).textTheme)),
+        debugShowCheckedModeBanner: false,
+        home: const WelcomePage(),
       ),
     );
   }

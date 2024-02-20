@@ -6,16 +6,16 @@ import 'package:authentication/model/book_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-class bookService {
+class BookService {
   String Book = 'book';
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  late CollectionReference<bookmodel> book;
+  late CollectionReference<Bookmodel> book;
   Reference storage = FirebaseStorage.instance.ref();
 
-  bookService() {
-    book = firestore.collection(Book).withConverter<bookmodel>(
+  BookService() {
+    book = firestore.collection(Book).withConverter<Bookmodel>(
       fromFirestore: (snapshot, options) {
-        return bookmodel.fromjson(snapshot.id, snapshot.data()!);
+        return Bookmodel.fromjson(snapshot.id, snapshot.data()!);
       },
       toFirestore: (value, options) {
         return value.tojson();
@@ -23,7 +23,7 @@ class bookService {
     );
   }
 
-  Future<void> addProduct(bookmodel data) async {
+  Future<void> addProduct(Bookmodel data) async {
     try {
       await book.add(data);
     } catch (e) {
@@ -31,18 +31,8 @@ class bookService {
     }
   }
 
-  Future<List<bookmodel>> getAllBooks() async {
+  Future<List<Bookmodel>> getAllBooks() async {
     final snapshot = await book.get();
     return snapshot.docs.map((doc) => doc.data()).toList();
   }
-
-  // Future<String> uploadImage(imageUrl, imagePath) async {
-  //   Reference imageFolder = storage.child('productImage');
-  //   Reference? uploadImage = imageFolder.child('$imageUrl.jpg');
-
-  //   await uploadImage.putFile(imagePath);
-  //   String downloadURL = await uploadImage.getDownloadURL();
-  //   log(downloadURL);
-  //   return downloadURL;
-  // }
 }

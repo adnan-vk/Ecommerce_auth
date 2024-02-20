@@ -5,10 +5,10 @@ import 'package:authentication/service/book_service.dart';
 import 'package:flutter/foundation.dart';
 
 class bookProvider extends ChangeNotifier {
-  bookService bookservice = bookService();
-  List<bookmodel> Allbooks = [];
+  BookService bookservice = BookService();
+  List<Bookmodel> Allbooks = [];
 
-  addBook(bookmodel data) async {
+  addBook(Bookmodel data) async {
     await bookservice.addProduct(data);
   }
 

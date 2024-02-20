@@ -16,11 +16,13 @@ class LoginPageWidget {
           onTap: () {
             Provider.of<AuthenticationProvider>(context, listen: false)
                 .googleSignIn();
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const HomePage(),
-                ));
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const HomePage(),
+              ),
+              (route) => false,
+            );
           },
           child: SizedBox(
             width: size.width * .08,
