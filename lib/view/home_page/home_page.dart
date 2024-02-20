@@ -143,16 +143,6 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      // floatingActionButton: FloatingActionButton.extended(
-      //   onPressed: () {
-      //     Navigator.push(context,
-      //         MaterialPageRoute(builder: (context) => const CartPage()));
-      //   },
-      //   label: const Text('Go to Cart'),
-      //   icon: const Icon(Icons.shopping_cart),
-      //   backgroundColor: Colors.orange,
-      // ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

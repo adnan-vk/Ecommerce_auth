@@ -1,3 +1,4 @@
+import 'package:authentication/view/profile_page/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:authentication/controller/bottom_provider.dart';
 import 'package:authentication/view/cart/cart.dart';
@@ -47,8 +48,8 @@ class Bottom extends StatelessWidget {
                 text: 'Cart',
               ),
               GButton(
-                icon: Icons.settings_outlined,
-                text: 'Settings',
+                icon: Icons.person_2_outlined,
+                text: 'Profile',
               ),
             ],
             selectedIndex: providerdata.currentindex,
@@ -65,5 +66,5 @@ class Bottom extends StatelessWidget {
 final List<Widget> _tabs = [
   const HomePage(),
   const CartPage(),
-  const HomePage(),
+  const Profile(),
 ];
