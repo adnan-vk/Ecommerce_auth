@@ -5,6 +5,9 @@ import 'package:authentication/service/book_service.dart';
 import 'package:flutter/foundation.dart';
 
 class bookProvider extends ChangeNotifier {
+  List<Bookmodel> filtered = [];
+  // String search = '';
+  List<Bookmodel> searchlist = [];
   BookService bookservice = BookService();
   List<Bookmodel> Allbooks = [];
 
@@ -14,6 +17,12 @@ class bookProvider extends ChangeNotifier {
 
   getBook() async {
     Allbooks = await bookservice.getAllBooks();
+    notifyListeners();
+  }
+
+  void search(String value) {
+    searchlist = Allbooks.where((element) =>
+        element.bookname!.toLowerCase().contains(value.toLowerCase())).toList();
     notifyListeners();
   }
 }

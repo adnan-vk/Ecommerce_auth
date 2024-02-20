@@ -49,26 +49,28 @@ class HomePage extends StatelessWidget {
           const SizedBox(width: 10),
         ],
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: TextFormField(
-              decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
+      body: Consumer<bookProvider>(
+        builder: (context, provider, child) => Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: TextFormField(
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.search),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  labelText: "Search here ...",
                 ),
-                labelText: "Search here ...",
+                onChanged: (value) {
+                  provider.search(value);
+                },
               ),
-              onChanged: (value) {},
             ),
-          ),
-          const SizedBox(height: 10),
-          Expanded(
-            child: Consumer<bookProvider>(
-              builder: (context, value, child) => GridView.builder(
+            const SizedBox(height: 10),
+            Expanded(
+              child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     mainAxisSpacing: 10,
@@ -76,7 +78,9 @@ class HomePage extends StatelessWidget {
                     childAspectRatio: 0.68,
                   ),
                   itemBuilder: (context, index) {
-                    final book = value.Allbooks[index];
+                    final book = provider.searchlist.isNotEmpty
+                        ? provider.searchlist[index]
+                        : provider.Allbooks[index];
                     return InkWell(
                       onTap: () => Navigator.push(
                           context,
@@ -111,7 +115,9 @@ class HomePage extends StatelessWidget {
                               fallbackHeight: size.height * 0.2,
                               child: book.image == null
                                   ? Image.network(
-                                      'https://parade.com/.image/t_share/MTkwNTgxMDM0NTMyMjg0Mjg0/quotes-about-reading-books.jpg')
+                                      'https://parade.com/.image/t_share/MTkwNTgxMDM0NTMyMjg0Mjg0/quotes-about-reading-books.jpg',
+                                      width: double.infinity,
+                                    )
                                   : Image.network(book.image.toString()),
                             ),
                             const SizedBox(height: 10),
@@ -138,10 +144,12 @@ class HomePage extends StatelessWidget {
                       ),
                     );
                   },
-                  itemCount: value.Allbooks.length),
+                  itemCount: provider.searchlist.isNotEmpty
+                      ? provider.searchlist.length
+                      : provider.Allbooks.length),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
