@@ -1,4 +1,4 @@
-import 'package:authentication/view/home_page/home_page.dart';
+import 'package:authentication/view/bottom_bar/bottom_bar.dart';
 import 'package:authentication/view/login_page/selectlogin.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +11,7 @@ class AuthPage extends StatelessWidget {
     User? currentUser = FirebaseAuth.instance.currentUser;
     return Scaffold(
       body:
-          currentUser != null ? const HomePage() : const SelectLoginTypePage(),
+          currentUser != null ? const Bottom() : const SelectLoginTypePage(),
     );
   }
 }

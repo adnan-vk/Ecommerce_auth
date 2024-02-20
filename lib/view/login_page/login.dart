@@ -1,7 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors, use_build_context_synchronously
 
 import 'package:authentication/controller/authenticarion_provider/auth_provider.dart';
-import 'package:authentication/view/home_page/home_page.dart';
+import 'package:authentication/view/bottom_bar/bottom_bar.dart';
 import 'package:authentication/view/login_page/widgets/login_widgets.dart';
 import 'package:authentication/view/signup_page/signup.dart';
 import 'package:authentication/view/welcome_page/welcome_page.dart';
@@ -82,7 +82,7 @@ class LoginScreen extends StatelessWidget {
                                 Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => const HomePage(),
+                                      builder: (context) => const Bottom(),
                                     ));
                                 pro.emailController.clear();
                                 pro.passwordController.clear();

@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:authentication/controller/authenticarion_provider/auth_provider.dart';
-import 'package:authentication/view/home_page/home_page.dart';
+import 'package:authentication/view/bottom_bar/bottom_bar.dart';
 import 'package:authentication/view/phone/phone.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +19,7 @@ class LoginPageWidget {
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                builder: (context) => const HomePage(),
+                builder: (context) => const Bottom(),
               ),
               (route) => false,
             );

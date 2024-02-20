@@ -1,5 +1,5 @@
 import 'package:authentication/controller/authenticarion_provider/auth_provider.dart';
-import 'package:authentication/view/home_page/home_page.dart';
+import 'package:authentication/view/bottom_bar/bottom_bar.dart';
 import 'package:authentication/view/welcome_page/welcome_page.dart';
 import 'package:authentication/widgets/snackbar_widget.dart';
 import 'package:authentication/widgets/text_filed_widget.dart';
@@ -33,7 +33,7 @@ class OtpPage extends StatelessWidget {
                     // image: DecorationImage(
                     //     image: NetworkImage(
                     //         'https://www.twilio.com/content/dam/twilio-com/global/en/blog/legacy/2023/what-does-otp-mean/What_Is_a_One-Time_Password_OTP.png'))
-                            ),
+                    ),
               ),
               textFormField().textformfield(
                   max: 6,
@@ -51,7 +51,7 @@ class OtpPage extends StatelessWidget {
                         Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const HomePage(),
+                              builder: (context) => const Bottom(),
                             ),
                             (route) => false);
                         SnackBarWidget()

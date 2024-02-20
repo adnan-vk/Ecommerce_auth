@@ -1,6 +1,5 @@
 import 'package:authentication/controller/authenticarion_provider/auth_provider.dart';
 import 'package:authentication/controller/book_provider.dart';
-import 'package:authentication/view/cart/cart.dart';
 import 'package:authentication/view/details_page/details.dart';
 import 'package:authentication/view/login_page/selectlogin.dart';
 import 'package:authentication/view/welcome_page/welcome_page.dart';
@@ -24,7 +23,7 @@ class HomePage extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
         title: const Text(
-          "Books List",
+          "Books Store",
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
@@ -87,7 +86,8 @@ class HomePage extends StatelessWidget {
                               authour: book.author.toString(),
                               category: book.category.toString(),
                               description: book.description.toString(),
-                              price: book.price.toString(), image: book.image.toString(),
+                              price: book.price.toString(),
+                              image: book.image.toString(),
                             ),
                           )),
                       child: Container(
@@ -143,16 +143,16 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const CartPage()));
-        },
-        label: const Text('Go to Cart'),
-        icon: const Icon(Icons.shopping_cart),
-        backgroundColor: Colors.orange,
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      // floatingActionButton: FloatingActionButton.extended(
+      //   onPressed: () {
+      //     Navigator.push(context,
+      //         MaterialPageRoute(builder: (context) => const CartPage()));
+      //   },
+      //   label: const Text('Go to Cart'),
+      //   icon: const Icon(Icons.shopping_cart),
+      //   backgroundColor: Colors.orange,
+      // ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
