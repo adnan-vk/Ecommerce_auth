@@ -1,4 +1,5 @@
 class Bookmodel {
+  String? id;
   String? bookname;
   String? author;
   String? description;
@@ -7,7 +8,8 @@ class Bookmodel {
   String? image;
   List wishlist;
   Bookmodel(
-      {required this.bookname,
+      {this.id,
+      required this.bookname,
       required this.author,
       required this.description,
       required this.price,
@@ -17,6 +19,7 @@ class Bookmodel {
 
   factory Bookmodel.fromjson(String id, Map<String, dynamic> json) {
     return Bookmodel(
+        id: id,
         author: json['authour'],
         bookname: json['name'],
         description: json['description'],
@@ -34,7 +37,7 @@ class Bookmodel {
       "category": category,
       'price': price,
       'image': image,
-      'wishlist' : wishlist
+      'wishlist': wishlist
     };
   }
 }

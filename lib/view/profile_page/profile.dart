@@ -1,8 +1,9 @@
 import 'package:authentication/controller/authenticarion_provider/auth_provider.dart';
+import 'package:authentication/view/cart/wishlist.dart';
 import 'package:authentication/view/login_page/selectlogin.dart';
 import 'package:authentication/view/profile_page/about_appp.dart';
 import 'package:authentication/view/profile_page/privacy.dart';
-import 'package:authentication/view/settings/settings.dart';
+import 'package:authentication/view/profile_page/settings/settings.dart';
 import 'package:authentication/view/welcome_page/welcome_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -115,6 +116,17 @@ class Profile extends StatelessWidget {
                             )),
                         icon: Icons.settings,
                         title: "Settings",
+                      ),
+                      const SizedBox(height: 10),
+                      _buildMenuItem(
+                        context,
+                        onp: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const WishList(),
+                            )),
+                        icon: Icons.favorite_border,
+                        title: "Wishlist",
                       ),
                       const SizedBox(height: 10),
                       _buildMenuItem(

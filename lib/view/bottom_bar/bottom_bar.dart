@@ -1,7 +1,7 @@
 import 'package:authentication/view/profile_page/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:authentication/controller/bottom_provider.dart';
-import 'package:authentication/view/cart/cart.dart';
+import 'package:authentication/view/cart/wishlist.dart';
 import 'package:authentication/view/home_page/home_page.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
@@ -65,6 +65,6 @@ class Bottom extends StatelessWidget {
 
 final List<Widget> _tabs = [
   const HomePage(),
-  const CartPage(),
+  const WishList(),
   const Profile(),
 ];

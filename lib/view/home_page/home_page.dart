@@ -18,7 +18,8 @@ class HomePage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final pro = Provider.of<AuthenticationProvider>(context, listen: false);
     final pro2 = Provider.of<WishlistProvider>(context, listen: false);
-    Provider.of<bookProvider>(context, listen: false).getBook();
+    final bookpro = Provider.of<bookProvider>(context, listen: false);
+    bookpro.getBook();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: appcolor.orange,
@@ -51,27 +52,27 @@ class HomePage extends StatelessWidget {
           const SizedBox(width: 10),
         ],
       ),
-      body: Consumer<bookProvider>(
-        builder: (context, provider, child) => Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: TextFormField(
-                decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.search),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  labelText: "Search here ...",
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: TextFormField(
+              decoration: InputDecoration(
+                prefixIcon: const Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
                 ),
-                onChanged: (value) {
-                  provider.search(value);
-                },
+                labelText: "Search here ...",
               ),
+              onChanged: (value) {
+                bookpro.search(value);
+              },
             ),
-            const SizedBox(height: 10),
-            Expanded(
+          ),
+          const SizedBox(height: 10),
+          Consumer<bookProvider>(
+            builder: (context, value, child) => Expanded(
               child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
@@ -80,9 +81,9 @@ class HomePage extends StatelessWidget {
                     childAspectRatio: 0.68,
                   ),
                   itemBuilder: (context, index) {
-                    final book = provider.searchlist.isNotEmpty
-                        ? provider.searchlist[index]
-                        : provider.Allbooks[index];
+                    final book = value.searchlist.isNotEmpty
+                        ? value.searchlist[index]
+                        : value.Allbooks[index];
                     return InkWell(
                       onTap: () => Navigator.push(
                           context,
@@ -143,13 +144,15 @@ class HomePage extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 IconButton(
-                                  color: appcolor.red,
-                                  onPressed: () {
-                                    // pro2.wishlistCliscked(, status)
-                                  },
-                                  icon: const Icon(
-                                      Icons.favorite_border_outlined),
-                                )
+                                    color: appcolor.red,
+                                    onPressed: () {
+                                      pro2.wishlistCliscked(
+                                          book.id!, pro2.wishlistCheck(book));
+                                    },
+                                    icon: pro2.wishlistCheck(book)
+                                        ? const Icon(
+                                            Icons.favorite_border_outlined)
+                                        : const Icon(Icons.favorite))
                               ],
                             )
                           ],
@@ -157,12 +160,12 @@ class HomePage extends StatelessWidget {
                       ),
                     );
                   },
-                  itemCount: provider.searchlist.isNotEmpty
-                      ? provider.searchlist.length
-                      : provider.Allbooks.length),
+                  itemCount: value.searchlist.isNotEmpty
+                      ? value.searchlist.length
+                      : value.Allbooks.length),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

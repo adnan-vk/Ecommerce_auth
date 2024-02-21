@@ -107,8 +107,8 @@ class Detail extends StatelessWidget {
                       ElevatedButton(
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.orange,
-                          onPrimary: Colors.white,
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.orange,
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 10),
                         ),
@@ -117,8 +117,8 @@ class Detail extends StatelessWidget {
                       ElevatedButton(
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.orange,
-                          onPrimary: Colors.white,
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.orange,
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 10),
                         ),

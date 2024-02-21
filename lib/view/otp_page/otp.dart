@@ -29,11 +29,7 @@ class OtpPage extends StatelessWidget {
             children: [
               Container(
                 height: size.height * .3,
-                decoration: const BoxDecoration(
-                    // image: DecorationImage(
-                    //     image: NetworkImage(
-                    //         'https://www.twilio.com/content/dam/twilio-com/global/en/blog/legacy/2023/what-does-otp-mean/What_Is_a_One-Time_Password_OTP.png'))
-                    ),
+                decoration: const BoxDecoration(),
               ),
               textFormField().textformfield(
                   max: 6,

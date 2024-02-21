@@ -1,7 +1,6 @@
 import 'package:authentication/controller/authenticarion_provider/auth_provider.dart';
 import 'package:authentication/view/home_page/home_page.dart';
 import 'package:authentication/view/welcome_page/welcome_page.dart';
-import 'package:authentication/widgets/nav_widget.dart';
 import 'package:authentication/widgets/snackbar_widget.dart';
 import 'package:authentication/widgets/text_filed_widget.dart';
 import 'package:flutter/material.dart';
@@ -84,8 +83,7 @@ class SigninScreen extends StatelessWidget {
                                 try {
                                   pro.signUpEmail(pro.emailController.text,
                                       pro.passwordController.text);
-                                  NavigatorWidget().pushReplacement(
-                                      context, const HomePage());
+                                  Navigator.pop(context);
                                   SnackBarWidget().showSuccessSnackbar(
                                       context, 'Account has been created');
                                   pro.clearControllers();

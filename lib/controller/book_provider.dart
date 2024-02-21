@@ -6,7 +6,6 @@ import 'package:flutter/foundation.dart';
 
 class bookProvider extends ChangeNotifier {
   List<Bookmodel> filtered = [];
-  // String search = '';
   List<Bookmodel> searchlist = [];
   BookService bookservice = BookService();
   List<Bookmodel> Allbooks = [];
