@@ -2,6 +2,7 @@ import 'package:authentication/controller/authenticarion_provider/auth_provider.
 import 'package:authentication/controller/book_provider.dart';
 import 'package:authentication/controller/bottom_provider.dart';
 import 'package:authentication/controller/image_provider.dart';
+import 'package:authentication/controller/wishlist_provider.dart';
 import 'package:authentication/service/firebase_options.dart';
 import 'package:authentication/view/welcome_page/welcome_page.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -33,6 +34,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => BottomProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => WishlistProvider(),
         ),
       ],
       child: MaterialApp(

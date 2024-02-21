@@ -4,6 +4,7 @@ import 'dart:developer';
 
 import 'package:authentication/model/book_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class BookService {
@@ -11,6 +12,7 @@ class BookService {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   late CollectionReference<Bookmodel> book;
   Reference storage = FirebaseStorage.instance.ref();
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
   BookService() {
     book = firestore.collection(Book).withConverter<Bookmodel>(
@@ -34,5 +36,27 @@ class BookService {
   Future<List<Bookmodel>> getAllBooks() async {
     final snapshot = await book.get();
     return snapshot.docs.map((doc) => doc.data()).toList();
+  }
+
+  Future<void> wishlistClicked(String id, bool status) async {
+    try {
+      if (status == true) {
+        await book.doc(id).update({
+          'wishlist': FieldValue.arrayUnion([
+            firebaseAuth.currentUser!.email ??
+                firebaseAuth.currentUser!.phoneNumber
+          ])
+        });
+      } else {
+        await book.doc(id).update({
+          'wishlist': FieldValue.arrayRemove([
+            firebaseAuth.currentUser!.email ??
+                firebaseAuth.currentUser!.phoneNumber
+          ])
+        });
+      }
+    } catch (e) {
+      log("error is $e");
+    }
   }
 }

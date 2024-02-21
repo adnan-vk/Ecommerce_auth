@@ -107,9 +107,9 @@ class _AddBookPageState extends State<AddBookPage> {
         bookname: name,
         description: description,
         price: price,
-        image: pro2.downloadUrl);
+        image: pro2.downloadUrl,
+        wishlist: []);
     pro.addBook(data);
-    pro2.addImage(ImageSource.camera);
     nameController.clear();
     authorController.clear();
     categorycontroller.clear();

@@ -5,13 +5,15 @@ class Bookmodel {
   int? price;
   String? category;
   String? image;
+  List wishlist;
   Bookmodel(
       {required this.bookname,
       required this.author,
       required this.description,
       required this.price,
       this.image,
-      required this.category});
+      required this.category,
+      required this.wishlist});
 
   factory Bookmodel.fromjson(String id, Map<String, dynamic> json) {
     return Bookmodel(
@@ -20,7 +22,8 @@ class Bookmodel {
         description: json['description'],
         category: json['category'],
         price: json['price'],
-        image: json['image']);
+        image: json['image'],
+        wishlist: List<String>.from(json['wishlist']));
   }
 
   Map<String, dynamic> tojson() {
@@ -30,7 +33,8 @@ class Bookmodel {
       'description': description,
       "category": category,
       'price': price,
-      'image': image
+      'image': image,
+      'wishlist' : wishlist
     };
   }
 }

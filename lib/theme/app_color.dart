@@ -7,4 +7,5 @@ class AppColors {
   final black = Colors.black;
   final grey = Colors.grey;
   final blue = const Color(0xFF005086);
+  final red = Colors.red;
 }

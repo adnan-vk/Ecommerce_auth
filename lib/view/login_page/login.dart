@@ -79,11 +79,13 @@ class LoginScreen extends StatelessWidget {
                                     pro.passwordController.text);
                                 SnackBarWidget().showSuccessSnackbar(
                                     context, 'user logged in');
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const Bottom(),
-                                    ));
+                                Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const Bottom(),
+                                  ),
+                                  (route) => false,
+                                );
                                 pro.emailController.clear();
                                 pro.passwordController.clear();
                               } catch (e) {
@@ -104,11 +106,12 @@ class LoginScreen extends StatelessWidget {
                             TextWidget().text(data: "Don't Have an Account ? "),
                             TextButton(
                                 onPressed: () {
-                                  Navigator.pushAndRemoveUntil(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => SigninScreen(),
-                                      ), (route) => false,);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => SigninScreen(),
+                                    ),
+                                  );
                                 },
                                 child: TextWidget().text(
                                     data: "SIGNUP", color: appcolor.orange)),

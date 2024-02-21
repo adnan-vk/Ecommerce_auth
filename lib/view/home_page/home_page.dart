@@ -1,5 +1,6 @@
 import 'package:authentication/controller/authenticarion_provider/auth_provider.dart';
 import 'package:authentication/controller/book_provider.dart';
+import 'package:authentication/controller/wishlist_provider.dart';
 import 'package:authentication/view/details_page/details.dart';
 import 'package:authentication/view/login_page/selectlogin.dart';
 import 'package:authentication/view/welcome_page/welcome_page.dart';
@@ -16,6 +17,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final pro = Provider.of<AuthenticationProvider>(context, listen: false);
+    final pro2 = Provider.of<WishlistProvider>(context, listen: false);
     Provider.of<bookProvider>(context, listen: false).getBook();
     return Scaffold(
       appBar: AppBar(
@@ -87,7 +89,7 @@ class HomePage extends StatelessWidget {
                           MaterialPageRoute(
                             builder: (context) => Detail(
                               name: book.bookname.toString(),
-                              authour: book.author.toString(),
+                              author: book.author.toString(),
                               category: book.category.toString(),
                               description: book.description.toString(),
                               price: book.price.toString(),
@@ -111,15 +113,13 @@ class HomePage extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Placeholder(
-                              fallbackHeight: size.height * 0.2,
-                              child: book.image == null
-                                  ? Image.network(
-                                      'https://parade.com/.image/t_share/MTkwNTgxMDM0NTMyMjg0Mjg0/quotes-about-reading-books.jpg',
-                                      width: double.infinity,
-                                    )
-                                  : Image.network(book.image.toString()),
-                            ),
+                            book.image == null
+                                ? Image.network(
+                                    'https://parade.com/.image/t_share/MTkwNTgxMDM0NTMyMjg0Mjg0/quotes-about-reading-books.jpg',
+                                    width: double.infinity,
+                                    height: size.height * .14,
+                                  )
+                                : Image.network(book.image.toString()),
                             const SizedBox(height: 10),
                             textwidget.text(
                                 data: book.bookname,
@@ -139,6 +139,19 @@ class HomePage extends StatelessWidget {
                                 color: appcolor.orange,
                                 weight: FontWeight.bold,
                                 size: 14.0),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                IconButton(
+                                  color: appcolor.red,
+                                  onPressed: () {
+                                    // pro2.wishlistCliscked(, status)
+                                  },
+                                  icon: const Icon(
+                                      Icons.favorite_border_outlined),
+                                )
+                              ],
+                            )
                           ],
                         ),
                       ),
