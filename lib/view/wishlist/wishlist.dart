@@ -14,7 +14,7 @@ class WishList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Wishlist'),
+        title: const Text('Favourites'),
         backgroundColor: Colors.orange.shade700,
       ),
       body: Padding(

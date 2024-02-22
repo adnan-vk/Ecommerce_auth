@@ -26,6 +26,7 @@ class Detail extends StatelessWidget {
         title: const Text('Book Details'),
       ),
       body: SingleChildScrollView(
+        padding: EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -34,18 +35,8 @@ class Detail extends StatelessWidget {
                 Container(
                   height: 300,
                   width: double.infinity,
-                  decoration: const BoxDecoration(),
-                ),
-                Positioned(
-                  top: 20,
-                  right: 20,
-                  child: IconButton(
-                    icon: const Icon(
-                      Icons.favorite_border,
-                      color: Colors.red,
-                    ),
-                    onPressed: () {},
-                  ),
+                  decoration: BoxDecoration(
+                      image: DecorationImage(image: NetworkImage(image))),
                 ),
               ],
             ),
