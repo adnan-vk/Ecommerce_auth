@@ -1,7 +1,7 @@
 import 'package:authentication/controller/authenticarion_provider/auth_provider.dart';
 import 'package:authentication/view/wishlist/wishlist.dart';
 import 'package:authentication/view/login_page/selectlogin.dart';
-import 'package:authentication/view/profile_page/about_appp.dart';
+import 'package:authentication/view/profile_page/about/about_appp.dart';
 import 'package:authentication/view/profile_page/privacy.dart';
 import 'package:authentication/view/profile_page/settings/settings.dart';
 import 'package:authentication/view/welcome_page/welcome_page.dart';
@@ -31,7 +31,7 @@ class Profile extends StatelessWidget {
                 padding: const EdgeInsets.all(15),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: appcolor.black,
                     borderRadius: BorderRadius.circular(30),
                     boxShadow: [
                       BoxShadow(
@@ -43,21 +43,21 @@ class Profile extends StatelessWidget {
                     ],
                   ),
                   padding: const EdgeInsets.all(20),
-                  child: const Row(
+                  child: Row(
                     children: [
                       CircleAvatar(
-                        backgroundColor: Colors.orange,
+                        backgroundColor: Colors.white,
                         radius: 40,
                         child: Icon(
                           Icons.person,
-                          color: Colors.white,
+                          color: appcolor.black,
                         ),
                       ),
-                      SizedBox(width: 15),
+                      const SizedBox(width: 15),
                       Text(
                         "ADNAN",
                         style: TextStyle(
-                          color: Colors.red,
+                          color: appcolor.white,
                           fontSize: 20,
                           fontWeight: FontWeight.w900,
                         ),
@@ -165,7 +165,7 @@ class Profile extends StatelessWidget {
               const SizedBox(width: 10),
               Text(
                 title,
-                style: TextStyle(color: appcolor.orange),
+                style: TextStyle(color: appcolor.white),
               ),
             ],
           ),

@@ -26,7 +26,7 @@ class Detail extends StatelessWidget {
         title: const Text('Book Details'),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
