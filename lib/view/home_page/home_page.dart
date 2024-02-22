@@ -1,9 +1,9 @@
-import 'package:authentication/controller/authenticarion_provider/auth_provider.dart';
 import 'package:authentication/controller/book_provider.dart';
 import 'package:authentication/controller/wishlist_provider.dart';
+import 'package:authentication/view/wishlist/wishlist.dart';
 import 'package:authentication/view/details_page/details.dart';
-import 'package:authentication/view/login_page/selectlogin.dart';
 import 'package:authentication/view/welcome_page/welcome_page.dart';
+import 'package:authentication/widgets/nav_widget.dart';
 import 'package:authentication/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,8 +16,6 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final pro = Provider.of<AuthenticationProvider>(context, listen: false);
-    final pro2 = Provider.of<WishlistProvider>(context, listen: false);
     final bookpro = Provider.of<bookProvider>(context, listen: false);
     bookpro.getBook();
     return Scaffold(
@@ -36,16 +34,10 @@ class HomePage extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              pro.signOutEmail();
-              pro.googleSignout();
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const SelectLoginTypePage(),
-                  ));
+              NavigatorWidget().push(context, const WishList());
             },
             icon: const Icon(
-              Icons.logout_outlined,
+              Icons.favorite,
               color: Colors.white,
             ),
           ),
@@ -114,13 +106,18 @@ class HomePage extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            book.image == null
-                                ? Image.network(
-                                    'https://parade.com/.image/t_share/MTkwNTgxMDM0NTMyMjg0Mjg0/quotes-about-reading-books.jpg',
-                                    width: double.infinity,
-                                    height: size.height * .14,
-                                  )
-                                : Image.network(book.image.toString()),
+                            Center(
+                              child: SizedBox(
+                                height: size.height * .16,
+                                child: book.image == null
+                                    ? Image.network(
+                                        'https://parade.com/.image/t_share/MTkwNTgxMDM0NTMyMjg0Mjg0/quotes-about-reading-books.jpg',
+                                        width: double.infinity,
+                                        height: size.height * .14,
+                                      )
+                                    : Image.network(book.image.toString()),
+                              ),
+                            ),
                             const SizedBox(height: 10),
                             textwidget.text(
                                 data: book.bookname,
@@ -135,26 +132,29 @@ class HomePage extends StatelessWidget {
                                 data: book.category,
                                 color: appcolor.grey[600],
                                 size: 12.0),
-                            textwidget.text(
-                                data: "₹ ${book.price}",
-                                color: appcolor.orange,
-                                weight: FontWeight.bold,
-                                size: 14.0),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                IconButton(
-                                    color: appcolor.red,
-                                    onPressed: () {
-                                      pro2.wishlistCliscked(
-                                          book.id!, pro2.wishlistCheck(book));
-                                    },
-                                    icon: pro2.wishlistCheck(book)
-                                        ? const Icon(
-                                            Icons.favorite_border_outlined)
-                                        : const Icon(Icons.favorite))
+                                textwidget.text(
+                                    data: "₹ ${book.price}",
+                                    color: appcolor.orange,
+                                    weight: FontWeight.bold,
+                                    size: 14.0),
+                                Consumer<WishlistProvider>(
+                                  builder: (context, value, child) =>
+                                      IconButton(
+                                          color: appcolor.red,
+                                          onPressed: () {
+                                            value.wishlistCliscked(book.id!,
+                                                value.wishlistCheck(book));
+                                          },
+                                          icon: value.wishlistCheck(book)
+                                              ? const Icon(Icons
+                                                  .favorite_border_outlined)
+                                              : const Icon(Icons.favorite)),
+                                ),
                               ],
-                            )
+                            ),
                           ],
                         ),
                       ),

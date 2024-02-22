@@ -34,13 +34,7 @@ class Detail extends StatelessWidget {
                 Container(
                   height: 300,
                   width: double.infinity,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: NetworkImage(
-                          'https://images.theconversation.com/files/45159/original/rptgtpxd-1396254731.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=754&fit=clip'),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+                  decoration: const BoxDecoration(),
                 ),
                 Positioned(
                   top: 20,

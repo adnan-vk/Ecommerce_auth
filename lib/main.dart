@@ -1,7 +1,6 @@
 import 'package:authentication/controller/authenticarion_provider/auth_provider.dart';
 import 'package:authentication/controller/book_provider.dart';
 import 'package:authentication/controller/bottom_provider.dart';
-import 'package:authentication/controller/image_provider.dart';
 import 'package:authentication/controller/wishlist_provider.dart';
 import 'package:authentication/service/firebase_options.dart';
 import 'package:authentication/view/welcome_page/welcome_page.dart';
@@ -28,9 +27,6 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => bookProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => ImgProvider(),
         ),
         ChangeNotifierProvider(
           create: (context) => BottomProvider(),

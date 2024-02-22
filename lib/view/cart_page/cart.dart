@@ -7,8 +7,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class WishList extends StatelessWidget {
-  const WishList({Key? key}) : super(key: key);
+class Cart extends StatelessWidget {
+  const Cart({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

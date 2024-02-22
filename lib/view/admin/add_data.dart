@@ -1,8 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api, unnecessary_null_comparison
 
-import 'dart:developer';
+import 'dart:io';
 import 'package:authentication/controller/book_provider.dart';
-import 'package:authentication/controller/image_provider.dart';
 import 'package:authentication/model/book_model.dart';
 import 'package:authentication/widgets/text_filed_widget.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +24,7 @@ class _AddBookPageState extends State<AddBookPage> {
 
   @override
   Widget build(BuildContext context) {
-    // final pro = Provider.of<bookProvider>(context, listen: false);
+    final pro = Provider.of<bookProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add Book'),
@@ -41,7 +40,7 @@ class _AddBookPageState extends State<AddBookPage> {
                   onTap: () {
                     pickImage(context);
                   },
-                  child: Consumer<ImgProvider>(
+                  child: Consumer<bookProvider>(
                     builder: (context, value, child) => CircleAvatar(
                       backgroundImage: value.pickedImage != null
                           ? FileImage(value.pickedImage!)
@@ -74,7 +73,8 @@ class _AddBookPageState extends State<AddBookPage> {
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  addData();
+                  addData(context);
+                  pro.uploadImage(pro.downloadUrl);
                 },
                 child: const Text('Submit'),
               ),
@@ -85,40 +85,25 @@ class _AddBookPageState extends State<AddBookPage> {
     );
   }
 
-  addData() {
-    final pro = Provider.of<bookProvider>(context, listen: false);
-    final pro2 = Provider.of<ImgProvider>(context, listen: false);
-    final name = nameController.text.trim();
-    final authour = authorController.text.trim();
-    final description = descriptionController.text.trim();
-    final price = int.parse(priceController.text.trim());
-    final category = categorycontroller.text.trim();
+  addData(context) async {
+    final getProvider = Provider.of<bookProvider>(context, listen: false);
+    final getwidgetProvider = Provider.of<bookProvider>(context, listen: false);
+    await getProvider.uploadImage(File(getwidgetProvider.pickedImage!.path));
 
-    if (name.isEmpty ||
-        authour.isEmpty ||
-        description.isEmpty ||
-        price == null) {
-      log('invalid input');
-      return;
-    }
-    final data = Bookmodel(
-        category: category,
-        author: authour,
-        bookname: name,
-        description: description,
-        price: price,
-        image: pro2.downloadUrl,
-        wishlist: []);
-    pro.addBook(data);
-    nameController.clear();
-    authorController.clear();
-    categorycontroller.clear();
-    descriptionController.clear();
-    priceController.clear();
+    final product = Bookmodel(
+        bookname: nameController.text,
+        author: authorController.text,
+        description: descriptionController.text,
+        price: int.parse(priceController.text),
+        category: categorycontroller.text,
+        wishlist: [],
+        image: getProvider.downloadUrl);
+    getProvider.addBook(product);
+    Navigator.pop(context);
   }
 
   Future<void> pickImage(BuildContext context) async {
-    final pro = Provider.of<ImgProvider>(context, listen: false);
+    final pro = Provider.of<bookProvider>(context, listen: false);
     await showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {

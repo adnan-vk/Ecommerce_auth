@@ -1,11 +1,13 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:authentication/model/book_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
 
 class BookService {
   String Book = 'book';
@@ -13,6 +15,7 @@ class BookService {
   late CollectionReference<Bookmodel> book;
   Reference storage = FirebaseStorage.instance.ref();
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  final ImagePicker imagePicker = ImagePicker();
 
   BookService() {
     book = firestore.collection(Book).withConverter<Bookmodel>(
@@ -58,5 +61,23 @@ class BookService {
     } catch (e) {
       log("error is $e");
     }
+  }
+
+  Future<String> uploadImage(imageName, imageFile) async {
+    Reference imageFolder = storage.child('productImage');
+    Reference? uploadImage = imageFolder.child('$imageName.jpg');
+
+    await uploadImage.putFile(imageFile);
+    String downloadURL = await uploadImage.getDownloadURL();
+    log('Image successfully uploaded to Firebase Storage.');
+    return downloadURL;
+  }
+
+  Future<File?> pickImage(ImageSource source) async {
+    final pickedFile = await imagePicker.pickImage(source: source);
+    if (pickedFile != null) {
+      return File(pickedFile.path);
+    }
+    return null;
   }
 }

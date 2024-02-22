@@ -1,7 +1,7 @@
+import 'package:authentication/view/cart_page/cart.dart';
 import 'package:authentication/view/profile_page/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:authentication/controller/bottom_provider.dart';
-import 'package:authentication/view/cart/wishlist.dart';
 import 'package:authentication/view/home_page/home_page.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +11,6 @@ class Bottom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // double size = MediaQuery.of(context).size.width;
     final providerdata = Provider.of<BottomProvider>(context);
     return Scaffold(
       body: _tabs[providerdata.currentindex],
@@ -65,6 +64,6 @@ class Bottom extends StatelessWidget {
 
 final List<Widget> _tabs = [
   const HomePage(),
-  const WishList(),
+  const Cart(),
   const Profile(),
 ];

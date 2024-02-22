@@ -1,5 +1,5 @@
 import 'package:authentication/controller/authenticarion_provider/auth_provider.dart';
-import 'package:authentication/view/cart/wishlist.dart';
+import 'package:authentication/view/wishlist/wishlist.dart';
 import 'package:authentication/view/login_page/selectlogin.dart';
 import 'package:authentication/view/profile_page/about_appp.dart';
 import 'package:authentication/view/profile_page/privacy.dart';
