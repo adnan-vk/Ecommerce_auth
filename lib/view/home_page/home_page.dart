@@ -70,7 +70,7 @@ class HomePage extends StatelessWidget {
                     crossAxisCount: 2,
                     mainAxisSpacing: 10,
                     crossAxisSpacing: 10,
-                    childAspectRatio: 0.68,
+                    childAspectRatio: 0.63,
                   ),
                   itemBuilder: (context, index) {
                     final book = value.searchlist.isNotEmpty
@@ -145,8 +145,10 @@ class HomePage extends StatelessWidget {
                                       IconButton(
                                           color: appcolor.red,
                                           onPressed: () {
-                                            value.wishlistCliscked(book.id!,
-                                                value.wishlistCheck(book));
+                                            final wish =
+                                                value.wishlistCheck(book);
+                                            value.wishlistCliscked(
+                                                book.id!, wish);
                                           },
                                           icon: value.wishlistCheck(book)
                                               ? const Icon(Icons

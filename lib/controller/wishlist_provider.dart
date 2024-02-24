@@ -18,6 +18,7 @@ class WishlistProvider extends ChangeNotifier {
       notifyListeners();
       return false;
     } else {
+      notifyListeners();
       return true;
     }
   }

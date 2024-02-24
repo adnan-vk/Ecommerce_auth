@@ -1,8 +1,8 @@
 import 'package:authentication/controller/authenticarion_provider/auth_provider.dart';
+import 'package:authentication/view/profile_page/privscy.dart';
 import 'package:authentication/view/wishlist/wishlist.dart';
 import 'package:authentication/view/login_page/selectlogin.dart';
 import 'package:authentication/view/profile_page/about/about_appp.dart';
-import 'package:authentication/view/profile_page/privacy.dart';
 import 'package:authentication/view/profile_page/settings/settings.dart';
 import 'package:authentication/view/welcome_page/welcome_page.dart';
 import 'package:flutter/material.dart';
@@ -100,7 +100,7 @@ class Profile extends StatelessWidget {
                         onp: () => Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const Privacy(),
+                              builder: (context) => const PrivacyPolicyPage(),
                             )),
                         context,
                         icon: Icons.privacy_tip_outlined,

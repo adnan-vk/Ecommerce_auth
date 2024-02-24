@@ -80,4 +80,14 @@ class BookService {
     }
     return null;
   }
+
+  Future<void> addToCart(String id, String userId) async {
+    try {
+      await book.doc(id).update({
+        'cart': FieldValue.arrayUnion([userId])
+      });
+    } catch (e) {
+      log("Error adding to cart: $e");
+    }
+  }
 }
