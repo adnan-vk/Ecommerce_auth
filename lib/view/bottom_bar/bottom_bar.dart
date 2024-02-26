@@ -65,5 +65,5 @@ class Bottom extends StatelessWidget {
 final List<Widget> _tabs = [
   const HomePage(),
   const Cart(),
-  const Profile(),
+   Profile(),
 ];

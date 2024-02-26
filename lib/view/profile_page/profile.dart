@@ -3,8 +3,9 @@ import 'package:authentication/view/profile_page/privscy.dart';
 import 'package:authentication/view/wishlist/wishlist.dart';
 import 'package:authentication/view/login_page/selectlogin.dart';
 import 'package:authentication/view/profile_page/about/about_appp.dart';
-import 'package:authentication/view/profile_page/settings/settings.dart';
+import 'package:authentication/view/profile_page/helpcenter/help_center.dart';
 import 'package:authentication/view/welcome_page/welcome_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,7 +14,7 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: appcolor.orange,
@@ -23,7 +24,7 @@ class Profile extends StatelessWidget {
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Container(
-          height: height * 1,
+          height: size.height * 1,
           color: const Color.fromARGB(255, 240, 240, 240),
           child: Column(
             children: [
@@ -55,10 +56,10 @@ class Profile extends StatelessWidget {
                       ),
                       const SizedBox(width: 15),
                       Text(
-                        "ADNAN",
+                        FirebaseAuth.instance.currentUser!.email.toString(),
                         style: TextStyle(
                           color: appcolor.white,
-                          fontSize: 20,
+                          fontSize: size.width * .046,
                           fontWeight: FontWeight.w900,
                         ),
                       ),
@@ -112,10 +113,10 @@ class Profile extends StatelessWidget {
                         onp: () => Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const SettingsPage(),
+                              builder: (context) => HelpCenterPage(),
                             )),
-                        icon: Icons.settings,
-                        title: "Settings",
+                        icon: Icons.help_center_outlined,
+                        title: "Help Center",
                       ),
                       const SizedBox(height: 10),
                       _buildMenuItem(
