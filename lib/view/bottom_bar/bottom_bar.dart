@@ -1,5 +1,6 @@
 import 'package:authentication/view/cart_page/cart.dart';
 import 'package:authentication/view/profile_page/profile.dart';
+import 'package:authentication/view/wishlist/wishlist.dart';
 import 'package:flutter/material.dart';
 import 'package:authentication/controller/bottom_provider.dart';
 import 'package:authentication/view/home_page/home_page.dart';
@@ -43,6 +44,10 @@ class Bottom extends StatelessWidget {
                 text: 'Home',
               ),
               GButton(
+                icon: Icons.favorite_border_outlined,
+                text: 'Fav...',
+              ),
+              GButton(
                 icon: Icons.shopping_cart_outlined,
                 text: 'Cart',
               ),
@@ -64,6 +69,7 @@ class Bottom extends StatelessWidget {
 
 final List<Widget> _tabs = [
   const HomePage(),
+  const WishList(),
   const Cart(),
-   Profile(),
+  const Profile(),
 ];

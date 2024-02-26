@@ -8,4 +8,5 @@ class AppColors {
   final grey = Colors.grey;
   final blue = const Color(0xFF005086);
   final red = Colors.red;
+  final green = Colors.green;
 }

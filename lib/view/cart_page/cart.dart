@@ -1,11 +1,35 @@
-// ignore_for_file: avoid_types_as_parameter_names
+// import 'package:authentication/view/home_page/home_page.dart';
+// import 'package:authentication/widgets/text_widget.dart';
+// import 'package:flutter/material.dart';
 
-import 'package:authentication/controller/book_provider.dart';
-import 'package:authentication/controller/wishlist_provider.dart';
-import 'package:authentication/model/book_model.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// class Cart extends StatelessWidget {
+//   const Cart({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(),
+//       body: GridView.builder(
+//         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+//           crossAxisCount: 2,
+//           mainAxisSpacing: 10,
+//           crossAxisSpacing: 10,
+//           childAspectRatio: 0.63,
+//         ),
+//         itemBuilder: (context, index) {
+//           return Card(
+//             child: Row(
+//               children: [TextWidget().text(data: "hello aalll")],
+//             ),
+//           );
+//         },
+//         itemCount: 10,
+//       ),
+//     );
+//   }
+// }
+
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class Cart extends StatelessWidget {
   const Cart({Key? key}) : super(key: key);
@@ -14,64 +38,65 @@ class Cart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cart'),
-        backgroundColor: Colors.orange.shade700,
+        title: Text('Your Cart'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Consumer2<WishlistProvider, bookProvider>(
-              builder: (context, wishlistProvider, bookProvider, child) {
-                final wishlistItems = checkUser(wishlistProvider, bookProvider);
-                return Expanded(
-                  child: ListView.builder(
-                    itemCount: wishlistItems.length,
-                    itemBuilder: (context, index) {
-                      final item = wishlistItems[index];
-                      return ListTile(
-                        title: Text(item.author.toString()),
-                        subtitle: Text('Author: ${item.author}'),
-                        trailing: Text('₹ ${item.price}'),
-                      );
-                    },
-                  ),
-                );
-              },
-            ),
-            const Divider(
-              thickness: 1,
-              color: Colors.black,
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.orange,
-              ),
-              child: const Text('Checkout'),
-            ),
-          ],
+      body: GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          mainAxisSpacing: 10,
+          crossAxisSpacing: 10,
+          childAspectRatio: 0.63,
         ),
+        itemBuilder: (context, index) {
+          return Card(
+            elevation: 4,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Product Name",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    "\$10.99",
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.green,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Image.network(
+                    'https://via.placeholder.com/150', // Replace with your product image URL
+                    height: 80,
+                  ),
+                  SizedBox(height: 8),
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: Text('Add to Cart'),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.blue,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+        itemCount: 10,
       ),
-      backgroundColor: Colors.grey[200],
     );
-  }
-
-  List<Bookmodel> checkUser(
-      WishlistProvider wishlistProvider, bookProvider bookProvider) {
-    final currentUser = FirebaseAuth.instance.currentUser;
-    if (currentUser == null) {
-      return [];
-    }
-    final user = currentUser.email ?? currentUser.phoneNumber;
-    List<Bookmodel> myBooks = [];
-    for (var book in bookProvider.Allbooks) {
-      if (book.wishlist.contains(user)) {
-        myBooks.add(book);
-      }
-    }
-    return myBooks;
   }
 }

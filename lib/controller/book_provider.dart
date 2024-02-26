@@ -18,20 +18,23 @@ class bookProvider extends ChangeNotifier {
   String? downloadUrl;
   List<Bookmodel> searchlist = [];
   BookService bookservice = BookService();
-  List<Bookmodel> Allbooks = [];
+  List<Bookmodel> allbooks = [];
 
   addBook(Bookmodel data) async {
     await bookservice.addProduct(data);
+    getBook();
   }
 
-  getBook() async {
-    Allbooks = await bookservice.getAllBooks();
+  void getBook() async {
+    allbooks = await bookservice.getAllBooks();
     notifyListeners();
   }
 
   void search(String value) {
-    searchlist = Allbooks.where((element) =>
-        element.bookname!.toLowerCase().contains(value.toLowerCase())).toList();
+    searchlist = allbooks
+        .where((element) =>
+            element.bookname!.toLowerCase().contains(value.toLowerCase()))
+        .toList();
     notifyListeners();
   }
 

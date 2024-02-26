@@ -31,7 +31,7 @@ class WishList extends StatelessWidget {
                     itemBuilder: (context, index) {
                       final item = wishlistItems[index];
                       return ListTile(
-                        title: Text(item.author.toString()),
+                        title: Text(item.bookname.toString()),
                         subtitle: Text('Author: ${item.author}'),
                         trailing: Text('₹ ${item.price}'),
                       );
@@ -55,7 +55,7 @@ class WishList extends StatelessWidget {
     }
     final user = currentUser.email ?? currentUser.phoneNumber;
     List<Bookmodel> myBooks = [];
-    for (var book in bookProvider.Allbooks) {
+    for (var book in bookProvider.allbooks) {
       if (book.wishlist.contains(user)) {
         myBooks.add(book);
       }
