@@ -113,7 +113,7 @@ class Profile extends StatelessWidget {
                         onp: () => Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => HelpCenterPage(),
+                              builder: (context) => const HelpCenterPage(),
                             )),
                         icon: Icons.help_center_outlined,
                         title: "Help Center",
