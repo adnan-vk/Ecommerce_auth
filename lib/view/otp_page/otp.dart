@@ -1,5 +1,4 @@
 import 'package:authentication/controller/authenticarion_provider/auth_provider.dart';
-import 'package:authentication/view/bottom_bar/bottom_bar.dart';
 import 'package:authentication/view/welcome_page/welcome_page.dart';
 import 'package:authentication/widgets/snackbar_widget.dart';
 import 'package:authentication/widgets/text_filed_widget.dart';
@@ -36,22 +35,22 @@ class OtpPage extends StatelessWidget {
                   controller: pro.otpController,
                   labeltext: "OTP",
                   type: "OTP",
-                  onchange: pro.verifyOtp(pro.otpController.text),
+                  onchange: pro.verifyOtp(pro.otpController.text,context),
                   keytype: TextInputType.number),
               const SizedBox(height: 20),
               ElevatedButton(
                   onPressed: () {
                     if (formkey.currentState!.validate()) {
                       try {
-                        pro.verifyOtp(pro.otpController.text);
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const Bottom(),
-                            ),
-                            (route) => false);
-                        SnackBarWidget()
-                            .showSuccessSnackbar(context, "OTP validated");
+                        pro.verifyOtp(pro.otpController.text,context);
+                        // Navigator.pushAndRemoveUntil(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //       builder: (context) => const Bottom(),
+                        //     ),
+                        //     (route) => false);
+                        // SnackBarWidget()
+                        //     .showSuccessSnackbar(context, "OTP validated");
                       } catch (e) {
                         SnackBarWidget()
                             .showErrorSnackbar(context, "Invalid OTP");

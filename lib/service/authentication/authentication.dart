@@ -2,8 +2,11 @@
 
 import 'dart:developer';
 import 'package:authentication/model/auth_model.dart';
+import 'package:authentication/view/bottom_bar/bottom_bar.dart';
+import 'package:authentication/widgets/snackbar_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
@@ -50,7 +53,7 @@ class AuthService {
       final UserCredential userCredential =
           await FirebaseAuth.instance.signInWithCredential(credential);
       final User? user = userCredential.user;
-      final authenticationModel = AuthenticationModel(
+      final authenticationModel = UserModel(
         email: user?.email,
         name: user?.displayName,
         phoneNumber: user?.phoneNumber,
@@ -75,7 +78,7 @@ class AuthService {
       UserCredential user =
           await firebaseAuth.signInWithProvider(githubAuthProvider);
       User gituser = user.user!;
-      final AuthenticationModel userdata = AuthenticationModel(
+      final UserModel userdata = UserModel(
           email: gituser.email, name: gituser.displayName, uId: gituser.uid);
       firestore.collection("users").doc(gituser.uid).set(userdata.toJson());
       return user;
@@ -111,14 +114,24 @@ class AuthService {
     }
   }
 
-  Future<PhoneAuthCredential?> verifyOtp(String otp) async {
+  Future<PhoneAuthCredential?> verifyOtp(String otp, context) async {
     try {
       PhoneAuthCredential credential = PhoneAuthProvider.credential(
           verificationId: verificationid!, smsCode: otp);
-      return credential;
+      // return credential;
+      // Navigator.pus
+      await firebaseAuth.signInWithCredential(credential);
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const Bottom(),
+          ),
+          (route) => false);
+      SnackBarWidget().showSuccessSnackbar(context, "OTP validated");
     } catch (e) {
       log("verify otp error $e");
       return null;
     }
+    return null;
   }
 }
