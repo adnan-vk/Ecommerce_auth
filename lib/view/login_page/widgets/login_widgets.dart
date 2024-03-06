@@ -13,8 +13,8 @@ class LoginPageWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         GestureDetector(
-          onTap: () {
-            Provider.of<AuthenticationProvider>(context, listen: false)
+          onTap: () async {
+            await Provider.of<AuthenticationProvider>(context, listen: false)
                 .googleSignIn();
             Navigator.pushAndRemoveUntil(
               context,

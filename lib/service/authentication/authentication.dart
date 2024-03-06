@@ -41,27 +41,53 @@ class AuthService {
     await firebaseAuth.signOut();
   }
 
+  // Future<void> googleSignIn() async {
+  //   try {
+  //     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+  //     final GoogleSignInAuthentication? googleAuth =
+  //         await googleUser?.authentication;
+  //     final credential = GoogleAuthProvider.credential(
+  //       accessToken: googleAuth?.accessToken,
+  //       idToken: googleAuth?.idToken,
+  //     );
+  //     final UserCredential userCredential =
+  //         await FirebaseAuth.instance.signInWithCredential(credential);
+  //     final User? user = userCredential.user;
+  //     final authenticationModel = UserModel(
+  //       email: user?.email,
+  //       name: user?.displayName,
+  //       phoneNumber: user?.phoneNumber,
+  //       uId: user?.uid,
+  //     );
+  //     await firestore.collection(collection).doc(user?.uid).set(
+  //           authenticationModel.toJson(),
+  //         );
+  //   } catch (e) {
+  //     log('Google Sign-In Error: $e');
+  //     rethrow;
+  //   }
+  // }
   Future<void> googleSignIn() async {
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       final GoogleSignInAuthentication? googleAuth =
           await googleUser?.authentication;
+
+      if (googleAuth == null) {
+        log('Google authentication failed');
+        throw Exception('Google authentication failed');
+      }
+
       final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken,
-        idToken: googleAuth?.idToken,
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
       );
+
       final UserCredential userCredential =
           await FirebaseAuth.instance.signInWithCredential(credential);
-      final User? user = userCredential.user;
-      final authenticationModel = UserModel(
-        email: user?.email,
-        name: user?.displayName,
-        phoneNumber: user?.phoneNumber,
-        uId: user?.uid,
-      );
-      await firestore.collection(collection).doc(user?.uid).set(
-            authenticationModel.toJson(),
-          );
+
+      final User? guser = userCredential.user;
+      log("${guser?.displayName}");
     } catch (e) {
       log('Google Sign-In Error: $e');
       rethrow;
